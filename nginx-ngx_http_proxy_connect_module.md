@@ -56,7 +56,7 @@
   built by gcc 4.8.5 20150623 (Red Hat 4.8.5-11) (GCC) 
   built with OpenSSL 1.0.1e-fips 11 Feb 2013
   TLS SNI support enabled
-  configure arguments: --prefix=/app/nginx --with-http_ssl_module --add- module=/app/ngx_http_proxy_connect_module-master
+  configure arguments: --prefix=/app/nginx --with-http_ssl_module --add-module=/app/ngx_http_proxy_connect_module-master
 ```
 
 ## 7.配置代理
