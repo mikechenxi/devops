@@ -1,4 +1,4 @@
-# nginx 使用 ngx_http_proxy_connect_module 模块设置 http/https 正向代理
+# nginx 使用 ngx_http_proxy_connect_module 模块配置正向代理
 
 [TOC]
 
