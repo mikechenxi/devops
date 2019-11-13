@@ -62,23 +62,25 @@
 ## 7.配置代理
 
 ```
+http {
   server {
-      listen       80;
-      server_name  localhost;
-      # dns resolver used by forward proxying
-      resolver 10.204.24.1;
-      # forward proxy for CONNECT request
-      proxy_connect;
-      proxy_connect_allow all;
-      proxy_connect_connect_timeout 15s;
-      proxy_connect_read_timeout 15s;
-      proxy_connect_send_timeout 15s;
-      # forward proxy for non-CONNECT request
-      location / {
-          proxy_pass http://$http_host;
-          proxy_set_header Host $http_host;
-      }
+    listen       88;
+    server_name  localhost;
+    # dns resolver used by forward proxying
+    resolver 10.204.24.1;
+    # forward proxy for CONNECT request
+    proxy_connect;
+    proxy_connect_allow all;
+    proxy_connect_connect_timeout 15s;
+    proxy_connect_read_timeout 15s;
+    proxy_connect_send_timeout 15s;
+    # forward proxy for non-CONNECT request
+    location / {
+      proxy_pass http://$http_host;
+      proxy_set_header Host $http_host;
+    }
   }
+}
 ```
 
 ## 8.启动 nginx
@@ -92,5 +94,5 @@
 > 10.204.24.2 为 nginx 代理服务器
 
 ```
-  curl https://github.com/ -v -x 10.204.24.2:80
+  curl https://github.com/ -v -x 10.204.24.2:88
 ```
