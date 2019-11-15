@@ -25,8 +25,9 @@ def set_config(section, option, value):
     try:
         cf = ConfigParser.ConfigParser()
         cf.read('.config.ini')
-        if cf.has_section(section):
-            cf.set(section, option, value)
+        if not cf.has_section(section):
+            add_section(section)
+        cf.set(section, option, value)
         file = open('.config.ini', 'w')
         cf.write(file)
         file.close()
@@ -39,3 +40,51 @@ def set_configs(configs):
             for option in configs[section]:
                 value = configs[section][option]
                 set_config(section, option, value)
+
+def remove_config(section, option):
+    try:
+        cf = ConfigParser.ConfigParser()
+        cf.read('.config.ini')
+        if cf.has_option(section, option):
+            cf.remove_option(section, option)
+        file = open('.config.ini', 'w')
+        cf.write(file)
+        file.close()
+    except Exception as e:
+        print(e)
+
+def remove_configs(configs):
+    if len(configs) > 0:
+        for section in configs:
+            for option in configs[section]:
+                remove_config(section, option)
+
+def add_section(section):
+    try:
+        cf = ConfigParser.ConfigParser()
+        cf.read('.config.ini')
+        if not cf.has_section(section):
+            cf.add_section(section)
+        file = open('.config.ini', 'w')
+        cf.write(file)
+        file.close()
+    except Exception as e:
+        print(e)
+
+def add_sections(sections):
+    pass
+
+def remove_section(section):
+    try:
+        cf = ConfigParser.ConfigParser()
+        cf.read('.config.ini')
+        if cf.has_section(section):
+            cf.remove_section(section)
+        file = open('.config.ini', 'w')
+        cf.write(file)
+        file.close()
+    except Exception as e:
+        print(e)
+
+def remove_sections(sections):
+    pass
