@@ -5,7 +5,7 @@ import javax.naming.Context;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
-public class Ldap_Login {
+public class LdapAuthentication {
     public static void main(String[] args) {
         String userName = "username";
         String password = "password";
@@ -41,5 +41,5 @@ public class Ldap_Login {
 }
 
 /*
-bug: it works when password is empty
+bug: it also works when password is empty
 */
