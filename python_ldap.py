@@ -7,7 +7,7 @@ def ldap_auth(username, password):
     ldap_host = 'xxx.xxx.xxx.xxx'
     ldap_port = '389'
     ldap_domain = '@xxx.com'
-    username = username + ldap_domain if username.find(domain) == -1 else username
+    username = username if username.find(domain) > 0 else username + ldap_domain
     conn = ldap.initialize('ldap://' + ldap_host + ':' + ldap_port)
     try:
         conn.simple_bind_s(username, password)
