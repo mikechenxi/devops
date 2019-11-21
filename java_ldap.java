@@ -5,7 +5,7 @@ import javax.naming.Context;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 
-public class LdapAuthentication {
+public class LdapAuth {
     public static void main(String[] args) {
         String userName = "username";
         String password = "password";
