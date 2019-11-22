@@ -17,11 +17,11 @@ public class LdapUtil {
             String port = "389"; 
             String url = new String("ldap://" + host + ":" + port);
             String domain = "@xxx.xxx";
-            String user = userName.indexOf(domain) > 0 ? userName : userName + domain;
+            userName = userName.indexOf(domain) > 0 ? userName : userName + domain;
             Hashtable env = new Hashtable();
             DirContext ctx = null;
             env.put(Context.SECURITY_AUTHENTICATION, "simple");
-            env.put(Context.SECURITY_PRINCIPAL, user);
+            env.put(Context.SECURITY_PRINCIPAL, userName);
             env.put(Context.SECURITY_CREDENTIALS, password);
             env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
             env.put(Context.PROVIDER_URL, url);
