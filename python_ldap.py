@@ -24,6 +24,6 @@ def ldap_auth(username, password):
 - linux needs to install openldap-devel(yum install openldap-devel) 
   before install python-ldap(cd python-ldap-3.2.0 && python setup.py install)
 - win just use pip install xxxxx.whl(from https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-ldap)
-- it works when password is empty
+- it also works when password is empty
 '''
     
