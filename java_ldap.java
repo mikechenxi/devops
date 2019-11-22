@@ -1,4 +1,4 @@
-import java.util.Hashtable;
+package com.xxx.util;
 
 import javax.naming.AuthenticationException;
 import javax.naming.Context;
