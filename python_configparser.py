@@ -38,8 +38,7 @@ def set_configs(configs):
     if len(configs) > 0:
         for section in configs:
             for option in configs[section]:
-                value = configs[section][option]
-                set_config(section, option, value)
+                set_config(section, option, configs[section][option])
 
 def remove_config(section, option):
     try:
