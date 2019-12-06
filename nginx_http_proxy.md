@@ -1,4 +1,4 @@
-# nginx 使用 ngx_http_proxy_connect_module 模块配置 http 正向代理
+# nginx 使用 ngx_http_proxy_connect_module 模块配置 http 协议正向代理
 
 
 > 工作目录目录为 /app
