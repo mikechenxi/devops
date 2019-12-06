@@ -2,13 +2,13 @@
 
 > 工作目录目录为 /app/apache
 
-## 安装依赖包 
+## 1.安装依赖包 
 
 ```
 yum install  gcc-c++
 ```
 
-## 下载软件 httpd、apr、apr-util、pcre、mod_jk
+## 2.下载软件 httpd、apr、apr-util、pcre、mod_jk
 
 ```
 wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-1.7.0.tar.gz
@@ -23,9 +23,7 @@ tar -xzvf httpd-2.4.41.tar.gz
 tar -xzvf tomcat-connectors-1.2.46-src.tar.gz
 ```
 
-## 安装软件
-
-安装 apr
+## 3.安装 apr
 
 ```
 cd apr-1.7.0
@@ -34,7 +32,7 @@ make
 make install
 ```
 
-安装 apr-util
+## 4.安装 apr-util
 
 ```
 cd apr-util-1.6.1
@@ -43,7 +41,7 @@ make
 make install
 ```
 
-安装 pcre
+## 5.安装 pcre
 
 ```
 cd pcre-8.43
@@ -71,7 +69,7 @@ make
 make install
 ```
 
-安装 apache
+## 6.安装 apache
 
 ```
 cd httpd-2.4.41
@@ -80,7 +78,7 @@ make
 make install
 ```
 
-安装 mod_jk
+## 7.安装 mod_jk
 
 ```
 cd tomcat-connectors-1.2.42-src/native/
@@ -89,7 +87,7 @@ make
 make install
 ```
 
-## 配置 apache
+## 8.配置 apache
 
 编辑 /app/apache/httpd/conf/httpd.conf, 末尾加上 
 
@@ -155,7 +153,7 @@ worker.OAapp.retries=3
 /jkstatus= status
 ```
 
-## 启动apache
+## 9.启动 apache
 
 ```
 cd /app/apache/httpd/bin
