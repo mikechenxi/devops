@@ -1,4 +1,4 @@
-# apache 使用 mod_jk 模块配置 AJP 反向代理
+# apache 使用 mod_jk 模块配置 AJP协议 反向代理
 
 > 工作目录目录为 /app/apache
 
