@@ -8,7 +8,7 @@
 yum install  gcc-c++
 ```
 
-## 下载软件 httpd、apr、apr-util、pcre
+## 下载软件 httpd、apr、apr-util、pcre、mod_jk
 
 ```
 wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-1.7.0.tar.gz
@@ -73,10 +73,7 @@ make install
 
 ## 配置apache
 
-```
-vim /app/apache/httpd/conf/httpd.conf
-```
-末尾加上 
+编辑 /app/apache/httpd/conf/httpd.conf, 末尾加上 
 
 ```
 LoadModule deflate_module modules/mod_deflate.so
