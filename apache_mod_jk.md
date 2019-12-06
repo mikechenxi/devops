@@ -1,4 +1,4 @@
-# apache 使用 mod_jk 模块配置 http 反向代理
+# apache 使用 mod_jk 模块配置 AJP 反向代理
 
 > 工作目录目录为 /app/apache
 
@@ -25,42 +25,42 @@ tar -xzvf tomcat-connectors-1.2.46-src.tar.gz
 
 ## 安装软件
 
+安装 apr
+
 ```
 cd apr-1.7.0
 ./configure --prefix=/app/apache/apr
 make
 make install
- 
+```
+
+安装 apr-util
+
+```
 cd apr-util-1.6.1
 ./configure --prefix=/app/apache/apr-util --with-apr=/app/apache/apr/bin/apr-1-config
 make
 make install
+```
 
+安装 pcre
+
+```
 cd pcre-8.43
 ./configure --prefix=/app/apache/pcre --with-apr=/app/apache/apr/bin/apr-1-config
 make
 make install
-
-cd httpd-2.4.41
-./configure --prefix=/app/apache/httpd --with-pcre=/app/apache/pcre --with-apr=/app/apache/apr --with-apr-util=/app/apache/apr-util
-make
-make install
-
-cd tomcat-connectors-1.2.42-src/native/
-./configure --with-apxs=/app/apache/httpd/bin/apxs
-make
-make install
 ```
 
-如果安装apr-util 遇到 expat.h: No such file or directory，需要安装expat-devel
+如果安装 apr-util 提示 expat.h: No such file or directory，需要安装expat-devel
 
-在线安装
+在线安装 expat-devel
 
 ```
 yum install expat-devel
 ```
 
-离线安装
+离线安装 expat-devel
 
 ```
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/expat/2.0.1-7.2/expat_2.0.1.orig.tar.gz
@@ -71,7 +71,25 @@ make
 make install
 ```
 
-## 配置apache
+安装 apache
+
+```
+cd httpd-2.4.41
+./configure --prefix=/app/apache/httpd --with-pcre=/app/apache/pcre --with-apr=/app/apache/apr --with-apr-util=/app/apache/apr-util
+make
+make install
+```
+
+安装 mod_jk
+
+```
+cd tomcat-connectors-1.2.42-src/native/
+./configure --with-apxs=/app/apache/httpd/bin/apxs
+make
+make install
+```
+
+## 配置 apache
 
 编辑 /app/apache/httpd/conf/httpd.conf, 末尾加上 
 
