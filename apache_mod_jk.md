@@ -50,7 +50,7 @@ make
 make install
 ```
 
-如果安装 apr-util 提示 expat.h: No such file or directory，需要安装 expat-devel
+如果安装 apr-util 提示 expat.h: No such file or directory, 需要安装 expat-devel
 
 在线安装 expat-devel
 
@@ -153,9 +153,12 @@ worker.app.retries=3
 /jkstatus= status
 ```
 
-## 9.启动 apache
+## 9.启动、停止、重启、不中断当前连接重启 apache
 
 ```
 cd /app/apache/httpd/bin
-./apachectl
+./apachectl start
+./apachectl stop
+./apachectl restart
+./apachectl graceful
 ```
