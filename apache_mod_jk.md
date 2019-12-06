@@ -50,7 +50,7 @@ make
 make install
 ```
 
-如果安装 apr-util 提示 expat.h: No such file or directory，需要安装expat-devel
+如果安装 apr-util 提示 expat.h: No such file or directory，需要安装 expat-devel
 
 在线安装 expat-devel
 
