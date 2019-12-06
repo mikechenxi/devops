@@ -134,16 +134,16 @@ worker.list = controller,status
 worker.status.type=status
 worker.controller.type=lb
 
-worker.controller.balance_workers=OAapp
+worker.controller.balance_workers=app
 
 worker.controller.sticky_session=1
 worker.controller.sticky_session_force=0
 
-worker.OAapp.port=8009
-worker.OAapp.host=192.168.189.133
-worker.OAapp.type=ajp13
-worker.OAapp.lbfactor=1
-worker.OAapp.retries=3
+worker.app.port=8009
+worker.app.host=192.168.189.133
+worker.app.type=ajp13
+worker.app.lbfactor=1
+worker.app.retries=3
 ```
 
 /app/apache/httpd/conf/ 目录新建 uriworkermap.properties, 内容如下
