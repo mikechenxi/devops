@@ -8,7 +8,7 @@
 yum install  gcc-c++
 ```
 
-## 2.下载软件 httpd、apr、apr-util、pcre、mod_jk
+## 2.下载软件 apr、apr-util、pcre、httpd、mod_jk
 
 ```
 wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-1.7.0.tar.gz
@@ -127,7 +127,7 @@ JkCIPHERIndicator SSL_CIPHER
 JkCERTSIndicator SSL_CLIENT_CERT
 ```
 
-/app/apache/httpd/conf/ 目录新建 workers.properties, 内容如下(192.168.189.133为tomcat所在服务器)
+/app/apache/httpd/conf/ 目录新建 workers.properties, 内容如下
 
 ```
 worker.list = controller,status 
@@ -144,6 +144,8 @@ worker.app.host=192.168.189.133
 worker.app.type=ajp13
 worker.app.lbfactor=1
 worker.app.retries=3
+
+# 192.168.189.133为tomcat所在服务器, 8009为tomcat ajp协议端口
 ```
 
 /app/apache/httpd/conf/ 目录新建 uriworkermap.properties, 内容如下
