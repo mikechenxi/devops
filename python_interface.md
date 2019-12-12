@@ -38,7 +38,7 @@ def call_webservice(url, func, data, headers = {}):
         elif data_type == 'tuple' or data_type == 'list':
             for index in range(len(data)):
                 if index != 0:
-                    expression += ','
+                    expression += ', '
                 obj = data[index]
                 obj_type = type(obj).__name__
                 if obj_type == 'int':
