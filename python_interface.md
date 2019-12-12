@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*
+# -*- coding: utf-8 -*-
 
 import urllib2
 from suds.client import Client
