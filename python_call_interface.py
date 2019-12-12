@@ -5,7 +5,7 @@ import urllib2
 from suds.client import Client
 import json
 
-def call_http(url, data, headers = {}, method = ''):
+def call_http(url, data, method = '', headers = {}):
     try:
         method = method.upper()
         req = urllib2.Request(url, data)
