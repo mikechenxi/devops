@@ -63,6 +63,7 @@ def call_webservice(url, func, data, headers = {}):
 
 # get session
 # use 'print client_login' will get all functions of this webservice interface
+# use 'print result' will get all properties and functions of this instance
 # login() is one of the functions in this interface
 '''
 result:
@@ -78,9 +79,9 @@ result:
 login_url = 'http://ip:port/ormrpc/services/EASLogin?wsdl'
 login_client = Client(url)
 result = login_client.service.login('userName', 'password', 'slnName', 'dcName', 'language', 'dbType')
-session_id = result[3]
+session_id = result.sessionId
 
-# get bank data
+# get bank
 '''
 result:
 {
@@ -103,13 +104,13 @@ result:
 }
 '''
 headers = {'SessionId':session_id}
-wsfc_interface_facade_url = 'http://ip:port/ormrpc/services/WSFcInterfaceFacade?wsdl'
-wsfc_interface_facade_client = Client(wsfc_interface_facade_url, headers = headers)
+query_bank_url = 'http://ip:port/ormrpc/services/WSFcInterfaceFacade?wsdl'
+query_bank_client = Client(query_bank_url, headers = headers)
 dic = {
     "offset": 0,
     "limit": 2
 }
-result = wsfc_interface_facade_client.service.queryBEBank(json.dumps(dic))
+result = query_bank_client.service.queryBEBank(json.dumps(dic))
 result = json.loads(result)
 if result['success'] == True:
     return result['data']
