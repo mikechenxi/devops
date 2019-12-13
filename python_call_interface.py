@@ -33,7 +33,7 @@ def call_webservice(url, func, data, headers = {}):
             client = Client(url)
         data_type = type(data).__name__
         expression = 'client.service.' + func + '('
-        if data_type == 'tuple' or data_type == 'list' or data_type == 'set':
+        if data_type == 'tuple' or data_type == 'list':
             for index in range(len(data)):
                 if index != 0:
                     expression += ', '
