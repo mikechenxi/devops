@@ -20,7 +20,7 @@ def call_http(url, data, method = '', headers = {}):
         #res = opener.open(url, data)
         return res.read()
     except Exception as e:
-        print e
+        print(e)
 
 
 # func is one of the functions in this interface
@@ -57,7 +57,7 @@ def call_webservice(url, func, data, headers = {}):
         result = eval(expression)
         return result
     except Exception as e:
-        print e
+        print(e)
 
 
 
