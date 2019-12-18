@@ -40,7 +40,7 @@ def call_webservice(url, func, data, headers = {}):
                 obj = data[index]
                 obj_type = type(obj).__name__
                 if obj_type == 'int' or data_type == 'float' or data_type == 'bool':
-                    expression += str(data[index])
+                    expression += str(obj)
                 elif obj_type == 'str':
                     expression += '\'' + obj + '\''
                 else:
