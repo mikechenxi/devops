@@ -1,5 +1,7 @@
 package com.xxx.util;
 
+//com/xxx.properties
+
 import java.io.*;
 import java.util.List;
 import java.util.Map;
