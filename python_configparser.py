@@ -35,6 +35,18 @@ def set_config(section, option, value):
     except Exception as e:
         print(e)
 
+'''
+configs = {
+    'section1': {
+        'option11': 'value11',
+        'option12': 'value12'
+    },
+    'section2': {
+        'option21': 'value21',
+        'option22': 'value22'
+    }
+}
+'''
 def set_configs(configs):
     if len(configs) > 0:
         for section in configs:
