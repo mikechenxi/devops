@@ -27,6 +27,7 @@ def set_config(section, option, value):
         cf.read('.config.ini')
         if not cf.has_section(section):
             add_section(section)
+            cf.read('.config.ini')
         cf.set(section, option, value)
         file = open('.config.ini', 'w')
         cf.write(file)
@@ -71,7 +72,9 @@ def add_section(section):
         print(e)
 
 def add_sections(sections):
-    pass
+    if len(sections) > 0:
+        for section in sections:
+            add_section(section)
 
 def remove_section(section):
     try:
@@ -86,4 +89,6 @@ def remove_section(section):
         print(e)
 
 def remove_sections(sections):
-    pass
+    if len(sections) > 0:
+        for section in sections:
+            remove_section(section)
