@@ -39,10 +39,10 @@ def call_webservice(url, func, data, headers = {}):
                     expression += ', '
                 obj = data[index]
                 obj_type = type(obj).__name__
-                if obj_type == 'int' or obj_type == 'long' or data_type == 'float' or data_type == 'bool':
-                    expression += str(obj)
-                elif obj_type == 'str':
+                if obj_type == 'str':
                     expression += '\'' + obj + '\''
+                elif obj_type == 'int' or obj_type == 'long' or data_type == 'float' or data_type == 'bool':
+                    expression += str(obj)
                 else:
                     pass
         elif data_type == 'dict':
