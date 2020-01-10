@@ -28,17 +28,11 @@ configs = {
 '''
 def get_configs(configs):
     if len(configs) > 0:
-        try:
-            cf = ConfigParser.ConfigParser()
-            cf.read('.config.ini')
-            for section in configs:
-                for option in configs[section]:
-                    if cf.has_option(section, option):
-                        configs[section][option] = cf.get(section, option)
-        except Exception as e:
-            print(e)
+        for section in configs:
+            for option in configs[section]:
+                configs[section][option] = get_config(section, option)
     return configs
-        
+
 def set_config(section, option, value):
     try:
         cf = ConfigParser.ConfigParser()
@@ -55,22 +49,9 @@ def set_config(section, option, value):
 
 def set_configs(configs):
     if len(configs) > 0:
-        try:
-            cf = ConfigParser.ConfigParser()
-            cf.read('.config.ini')
-            for section in configs:
-                if not cf.has_section(section):
-                    add_section(section)
-                    cf.read('.config.ini')
-                for option in configs[section]:
-                    cf.set(section, option, configs[section][option])
-            file = open('.config.ini', 'w')
-            cf.write(file)
-            file.close()
-        except Exception as e:
-            log_util.log('config_util.set_configs', str(e))
-            print(e)
-
+        for section in configs:
+            for option in configs[section]:
+                set_config(section, option)
 
 def remove_config(section, option):
     try:
