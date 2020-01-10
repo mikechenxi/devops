@@ -64,7 +64,7 @@ def set_configs(configs):
                     cf.read('.config.ini')
                 for option in configs[section]:
                     cf.set(section, option, configs[section][option])
-            file = open('/app/Seeyon/Scripts/.config/.config.ini', 'w')
+            file = open('.config.ini', 'w')
             cf.write(file)
             file.close()
         except Exception as e:
