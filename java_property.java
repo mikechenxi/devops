@@ -45,9 +45,11 @@ public class PropertyUtil {
             properties.load(inputStreamReader);
 
             FileOutputStream fileOutputStream = new FileOutputStream(FCUtil.class.getClassLoader().getResource("xxx.properties").getPath());
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
             properties.setProperty(key, value);
-            properties.store(fileOutputStream, "");
+            properties.store(outputStreamWriter, "");
 
+            outputStreamWriter.close();
             fileOutputStream.close();
         } catch (Exception e) {
             e.printStackTrace();
