@@ -20,7 +20,7 @@
   unzip master.zip
 ```
 
-## 3.对 nginx 打 ngx_http_proxy_connect_module-master 补丁
+## 3.对 nginx 打 ngx_http_proxy_connect_module-master 补丁(http代理)
 
 ```
   patch -d /home/nginx-1.12.2 -p1 </home/ngx_http_proxy_connect_module-master/patch/proxy_connect.patch
@@ -56,7 +56,7 @@
   configure arguments: --prefix=/app/nginx --with-http_ssl_module --add-module=/app/ngx_http_proxy_connect_module-master
 ```
 
-## 7.配置代理
+## 7.配置 http 代理
 
 ```
 http {
@@ -80,7 +80,19 @@ http {
 }
 ```
 
-## 8.启动、快速停止、 正常停止、重新加载配置文件nginx
+## 8.配置 email 代理
+
+```
+stream{
+  server{
+    listen 25;
+    proxy_connect_timeout 5s;
+    proxy_pass smtp.exmail.qq.com:25;
+  }
+}
+```
+
+## 9.启动、快速停止、 正常停止、重新加载配置文件nginx
 
 ```
   /app/nginx-1.12.2/sbin/nginx
@@ -89,10 +101,16 @@ http {
   /app/nginx-1.12.2/sbin/nginx -s reload
 ```
 
-## 9.测试代理是否生效
+## 10.测试代理是否生效
 
 > 10.204.24.2 为 nginx 代理服务器
+
+### http
 
 ```
   curl https://github.com/ -v -x 10.204.24.2:88
 ```
+
+### email
+
+>发邮件时邮件服务器地址设置为 10.204.24.2 端口设置为 25
