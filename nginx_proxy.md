@@ -9,7 +9,7 @@
     yum install gc gcc gcc-c++ pcre-devel zlib-devel openssl-devel patch
 ```
 
-## 2.下载 nginx、ngx_http_proxy_connect_module 并解压(http代理)
+## 2.下载 nginx、ngx_http_proxy_connect_module 并解压(http正向代理)
 
 > master.zip 解压后文件夹为 ngx_http_proxy_connect_module-master
 
@@ -89,7 +89,7 @@ http {
     server_name oa.xx.com;
     
     location =/ {
-      rewrite ^(.*)$  https://$host/oa/main;
+      rewrite ^(.*)$  http://$host/oa/main;
     }
 
     location /oa {
