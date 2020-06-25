@@ -16,16 +16,12 @@ wget http://mirrors.tuna.tsinghua.edu.cn/apache/apr/apr-util-1.6.1.tar.gz
 wget ftp://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
 wget http://mirrors.tuna.tsinghua.edu.cn/apache/httpd/httpd-2.4.43.tar.gz
 wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz
-tar -xzvf apr-1.7.0.tar.gz
-tar -xzvf apr-util-1.6.1.tar.gz
-tar -xzvf pcre-8.43.tar.gz
-tar -xzvf httpd-2.4.41.tar.gz
-tar -xzvf tomcat-connectors-1.2.46-src.tar.gz
 ```
 
 ## 3.安装 apr
 
 ```
+tar -xzvf apr-1.7.0.tar.gz
 cd apr-1.7.0
 ./configure --prefix=/app/apache/apr-1.7.0
 make
@@ -35,6 +31,7 @@ make install
 ## 4.安装 apr-util
 
 ```
+tar -xzvf apr-util-1.6.1.tar.gz
 cd apr-util-1.6.1
 ./configure --prefix=/app/apache/apr-util-1.6.1 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
 make
@@ -63,6 +60,7 @@ make install
 ## 5.安装 pcre
 
 ```
+tar -xzvf pcre-8.43.tar.gz
 cd pcre-8.43
 ./configure --prefix=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
 make
@@ -72,7 +70,8 @@ make install
 ## 6.安装 apache
 
 ```
-cd httpd-2.4.41
+tar -xzvf httpd-2.4.43.tar.gz
+cd httpd-2.4.43
 ./configure --prefix=/app/apache/httpd-2.4.43 --with-pcre=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0 --with-apr-util=/app/apache/apr-util-1.6.1
 make
 make install
@@ -81,6 +80,7 @@ make install
 ## 7.安装 mod_jk
 
 ```
+tar -xzvf tomcat-connectors-1.2.48-src.tar.gz
 cd tomcat-connectors-1.2.48-src/native/
 ./configure --with-apxs=/app/apache/httpd-2.4.43/bin/apxs
 make
