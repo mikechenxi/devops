@@ -1,4 +1,4 @@
-# nginx 配置 http 正向代理(使用 ngx_http_proxy_connect_module 模块配置) 以及 email 代理
+# nginx 配置 http 正向代理、反向代理以及 email 代理
 
 
 > 工作目录目录为 /home
@@ -9,7 +9,7 @@
     yum install gc gcc gcc-c++ pcre-devel zlib-devel openssl-devel patch
 ```
 
-## 2.下载 nginx、ngx_http_proxy_connect_module 并解压
+## 2.下载 nginx、ngx_http_proxy_connect_module 并解压(http代理)
 
 > master.zip 解压后文件夹为 ngx_http_proxy_connect_module-master
 
@@ -20,7 +20,7 @@
   unzip master.zip
 ```
 
-## 3.对 nginx 打 ngx_http_proxy_connect_module-master 补丁(http代理)
+## 3.对 nginx 打 ngx_http_proxy_connect_module-master 补丁
 
 ```
   patch -d /home/nginx-1.12.2 -p1 </home/ngx_http_proxy_connect_module-master/patch/proxy_connect.patch
@@ -85,8 +85,26 @@ http {
 ```
 http {
   server {
+    listen  80;
+    server_name oa.xx.com;
+    
+    location =/ {
+      rewrite ^(.*)$  https://$host/oa/main;
+    }
+
+    location /oa {
+      proxy_pass http://10.204.24.6/oa;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto  $scheme;
+    }
+  }
+
+  server {
     listen       443;
-    server_name  localhost;
+    server_name  oa.xx.com;
 
     ssl   on;
     ssl_certificate      /app/nginx/conf/https/a.pem;
@@ -96,8 +114,12 @@ http {
     ssl_ciphers  HIGH:!RC4:!MD5:!aNULL:!eNULL:!NULL:!DH:!EDH:!EXP:+MEDIUM;
     ssl_prefer_server_ciphers   on;
 
-    location / {
-            proxy_pass http://192.168.189.133:80;
+    location =/ {
+      rewrite ^(.*)$  https://$host/oa/main;
+    }
+    
+    location /oa {
+            proxy_pass http://192.168.189.133:80/oa;
             proxy_redirect  off;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
