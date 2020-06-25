@@ -56,7 +56,7 @@
   configure arguments: --prefix=/app/nginx --with-http_ssl_module --add-module=/app/ngx_http_proxy_connect_module-master
 ```
 
-## 7.配置 http 代理
+## 7.配置 http 正向代理
 
 ```
 http {
@@ -80,7 +80,38 @@ http {
 }
 ```
 
-## 8.配置 email 代理
+## 8.配置 http 反向代理
+
+```
+http {
+  server {
+    listen       443;
+    server_name  localhost;
+
+    ssl   on;
+    ssl_certificate      /app/nginx/conf/https/a.pem;
+    ssl_certificate_key  /app/nginx/conf/https/a.key;
+    ssl_session_timeout  5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers  HIGH:!RC4:!MD5:!aNULL:!eNULL:!NULL:!DH:!EDH:!EXP:+MEDIUM;
+    ssl_prefer_server_ciphers   on;
+
+    location / {
+            proxy_pass http://192.168.189.133:80;
+            proxy_redirect  off;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header REMOTE-HOST $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto  $scheme;
+    }
+  }
+}
+
+# 192.168.189.133为tomcat所在服务器, 80为tomcat http协议端口
+```
+
+## 9.配置 email 代理
 
 ```
 stream{
@@ -92,7 +123,7 @@ stream{
 }
 ```
 
-## 9.启动、快速停止、 正常停止、重新加载配置文件nginx
+## 10.启动、快速停止、 正常停止、重新加载配置文件nginx
 
 ```
   /app/nginx-1.12.2/sbin/nginx
@@ -101,7 +132,7 @@ stream{
   /app/nginx-1.12.2/sbin/nginx -s reload
 ```
 
-## 10.测试代理是否生效
+## 11.测试代理是否生效
 
 > 10.204.24.2 为 nginx 代理服务器
 
