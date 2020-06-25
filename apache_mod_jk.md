@@ -111,7 +111,8 @@ JkLogLevel info
 JkLogStampFormat "[%a %b %d %H:%M:%S %Y]"
 #options
 JkOptions +ForwardKeySize +ForwardURICompat -ForwardDirectories
-JkRequestLogFormat "%w %V %T"
+JkRequestLogFormat "%w %V %T %B %H %m %r %s %U %v %q %p %R"
+#JkRequestLogFormat "%w %V %T"
 JkMount /* controller
 HostnameLookups Off
 
