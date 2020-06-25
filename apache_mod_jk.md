@@ -72,7 +72,7 @@ make install
 ```
 tar -xzvf httpd-2.4.43.tar.gz
 cd httpd-2.4.43
-./configure --prefix=/app/apache/httpd-2.4.43 --with-pcre=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0 --with-apr-util=/app/apache/apr-util-1.6.1
+./configure --prefix=/app/apache/httpd-2.4.43 --enable-deflate=shared --with-pcre=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0 --with-apr-util=/app/apache/apr-util-1.6.1
 make
 make install
 ```
