@@ -1,6 +1,6 @@
 # apache 使用 mod_jk 模块配置 AJP协议 反向代理
 
-> 工作目录目录为 /app/apache
+> 工作目录目录为 /home
 
 ## 1.安装依赖包 
 
@@ -23,7 +23,7 @@ wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/jk/tomcat-connecto
 ```
 tar -xzvf apr-1.7.0.tar.gz
 cd apr-1.7.0
-./configure --prefix=/app/apache/apr-1.7.0
+./configure --prefix=/app/apr-1.7.0
 make
 make install
 ```
@@ -33,7 +33,7 @@ make install
 ```
 tar -xzvf apr-util-1.6.1.tar.gz
 cd apr-util-1.6.1
-./configure --prefix=/app/apache/apr-util-1.6.1 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
+./configure --prefix=/app/apr-util-1.6.1 --with-apr=/app/apr-1.7.0/bin/apr-1-config
 make
 make install
 ```
@@ -62,7 +62,7 @@ make install
 ```
 tar -xzvf pcre-8.43.tar.gz
 cd pcre-8.43
-./configure --prefix=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
+./configure --prefix=/app/pcre-8.43 --with-apr=/app/apr-1.7.0/bin/apr-1-config
 make
 make install
 ```
@@ -72,7 +72,7 @@ make install
 ```
 tar -xzvf httpd-2.4.43.tar.gz
 cd httpd-2.4.43
-./configure --prefix=/app/apache/httpd-2.4.43 --enable-deflate=shared --with-pcre=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0 --with-apr-util=/app/apache/apr-util-1.6.1
+./configure --prefix=/app/httpd-2.4.43 --enable-deflate=shared --with-pcre=/app/pcre-8.43 --with-apr=/app/apr-1.7.0 --with-apr-util=/app/apr-util-1.6.1
 make
 make install
 ```
@@ -82,14 +82,14 @@ make install
 ```
 tar -xzvf tomcat-connectors-1.2.48-src.tar.gz
 cd tomcat-connectors-1.2.48-src/native/
-./configure --with-apxs=/app/apache/httpd-2.4.43/bin/apxs
+./configure --with-apxs=/app/httpd-2.4.43/bin/apxs
 make
 make install
 ```
 
 ## 8.配置 apache
 
-编辑 /app/apache/httpd-2.4.43/conf/httpd.conf, 末尾加上 
+编辑 /app/httpd-2.4.43/conf/httpd.conf, 末尾加上 
 
 ```
 LoadModule deflate_module modules/mod_deflate.so
@@ -98,7 +98,7 @@ Include conf/mod_jk.conf
 AddOutputFilterByType DEFLATE text/html text/plain text/xml
 ```
 
-/app/apache/httpd-2.4.43/conf/ 目录新建 mod_jk.conf, 内容如下
+/app/httpd-2.4.43/conf/ 目录新建 mod_jk.conf, 内容如下
 
 ```
 LoadModule jk_module modules/mod_jk.so
@@ -128,7 +128,7 @@ JkCIPHERIndicator SSL_CIPHER
 JkCERTSIndicator SSL_CLIENT_CERT
 ```
 
-/app/apache/httpd-2.4.43/conf/ 目录新建 workers.properties, 内容如下
+/app/httpd-2.4.43/conf/ 目录新建 workers.properties, 内容如下
 
 ```
 worker.list = controller,status 
@@ -149,7 +149,7 @@ worker.app.retries=3
 # 192.168.189.133为tomcat所在服务器, 8009为tomcat ajp协议端口
 ```
 
-/app/apache/httpd-2.4.43/conf/ 目录新建 uriworkermap.properties, 内容如下
+/app/httpd-2.4.43/conf/ 目录新建 uriworkermap.properties, 内容如下
 
 ```
 /*=controller
@@ -159,7 +159,7 @@ worker.app.retries=3
 ## 9.启动、停止、重启、不中断当前连接重启 apache
 
 ```
-cd /app/apache/httpd/bin
+cd /app/httpd-2.4.43/bin
 ./apachectl start
 ./apachectl stop
 ./apachectl restart
