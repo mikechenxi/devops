@@ -1,7 +1,7 @@
 # nginx 使用 ngx_http_proxy_connect_module 模块配置 http 协议正向代理
 
 
-> 工作目录目录为 /app
+> 工作目录目录为 /home
 
 ## 1.安装依赖
 
@@ -23,14 +23,14 @@
 ## 3.对 nginx 打 ngx_http_proxy_connect_module-master 补丁
 
 ```
-  patch -d /app/nginx-1.12.2 -p1 </app/ngx_http_proxy_connect_module-master/patch/proxy_connect.patch
+  patch -d /home/nginx-1.12.2 -p1 </home/ngx_http_proxy_connect_module-master/patch/proxy_connect.patch
 ```
 
 ## 4.配置 nginx 
 
 ```
-  cd /app/nginx-1.12.2
-  ./configure --prefix=/app/nginx --with-http_ssl_module --add-module=/app/ngx_http_proxy_connect_module-master
+  cd nginx-1.12.2
+  ./configure --prefix=/app/nginx-1.12.2 --with-http_ssl_module --add-module=/home/ngx_http_proxy_connect_module-master
 ```
 
 ## 5.编译、安装 nginx
@@ -43,7 +43,7 @@
 ## 6.查看当前 nginx 的编译配置清单
 
 ```  
-  /app/nginx/sbin/nginx -V
+  /app/nginx-1.12.2/sbin/nginx -V
 ```
 
   显示如下
@@ -80,10 +80,13 @@ http {
 }
 ```
 
-## 8.启动 nginx
+## 8.启动、快速停止、 正常停止、重新加载配置文件nginx
 
 ```
-  /app/nginx/sbin/nginx
+  /app/nginx-1.12.2/sbin/nginx
+  /app/nginx-1.12.2/sbin/nginx -s stop
+  /app/nginx-1.12.2/sbin/nginx -s quit
+  /app/nginx-1.12.2/sbin/nginx -s reload
 ```
 
 ## 9.测试代理是否生效
