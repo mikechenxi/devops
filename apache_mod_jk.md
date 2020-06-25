@@ -14,8 +14,8 @@ yum install  gcc-c++
 wget http://mirrors.tuna.tsinghua.edu.cn/apache/apr/apr-1.7.0.tar.gz
 wget http://mirrors.tuna.tsinghua.edu.cn/apache/apr/apr-util-1.6.1.tar.gz
 wget ftp://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
-wget http://mirrors.tuna.tsinghua.edu.cn/apache/httpd/httpd-2.4.41.tar.gz
-wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.46-src.tar.gz
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/httpd/httpd-2.4.43.tar.gz
+wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.48-src.tar.gz
 tar -xzvf apr-1.7.0.tar.gz
 tar -xzvf apr-util-1.6.1.tar.gz
 tar -xzvf pcre-8.43.tar.gz
@@ -27,7 +27,7 @@ tar -xzvf tomcat-connectors-1.2.46-src.tar.gz
 
 ```
 cd apr-1.7.0
-./configure --prefix=/app/apache/apr
+./configure --prefix=/app/apache/apr-1.7.0
 make
 make install
 ```
@@ -36,16 +36,7 @@ make install
 
 ```
 cd apr-util-1.6.1
-./configure --prefix=/app/apache/apr-util --with-apr=/app/apache/apr/bin/apr-1-config
-make
-make install
-```
-
-## 5.安装 pcre
-
-```
-cd pcre-8.43
-./configure --prefix=/app/apache/pcre --with-apr=/app/apache/apr/bin/apr-1-config
+./configure --prefix=/app/apache/apr-util-1.6.1 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
 make
 make install
 ```
@@ -63,8 +54,17 @@ yum install expat-devel
 ```
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/expat/2.0.1-7.2/expat_2.0.1.orig.tar.gz
 tar -xzvf expat_2.0.1.orig.tar.gz
-cd expat_2.0.1.orig.tar.gz
+cd expat_2.0.1
 ./configure
+make
+make install
+```
+
+## 5.安装 pcre
+
+```
+cd pcre-8.43
+./configure --prefix=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0/bin/apr-1-config
 make
 make install
 ```
@@ -73,7 +73,7 @@ make install
 
 ```
 cd httpd-2.4.41
-./configure --prefix=/app/apache/httpd --with-pcre=/app/apache/pcre --with-apr=/app/apache/apr --with-apr-util=/app/apache/apr-util
+./configure --prefix=/app/apache/httpd-2.4.43 --with-pcre=/app/apache/pcre-8.43 --with-apr=/app/apache/apr-1.7.0 --with-apr-util=/app/apache/apr-util-1.6.1
 make
 make install
 ```
@@ -81,8 +81,8 @@ make install
 ## 7.安装 mod_jk
 
 ```
-cd tomcat-connectors-1.2.42-src/native/
-./configure --with-apxs=/app/apache/httpd/bin/apxs
+cd tomcat-connectors-1.2.48-src/native/
+./configure --with-apxs=/app/apache/httpd-2.4.43/bin/apxs
 make
 make install
 ```
