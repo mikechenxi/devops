@@ -5,7 +5,7 @@
 ## 1.安装依赖包 
 
 ```
-yum install  gcc-c++
+yum install  gcc gcc-c++
 ```
 
 ## 2.下载软件 apr、apr-util、pcre、httpd、mod_jk
