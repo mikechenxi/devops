@@ -11,10 +11,10 @@ yum install  gcc-c++
 ## 2.下载软件 apr、apr-util、pcre、httpd、mod_jk
 
 ```
-wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-1.7.0.tar.gz
-wget http://mirrors.tuna.tsinghua.edu.cn/apache//apr/apr-util-1.6.1.tar.gz
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/apr/apr-1.7.0.tar.gz
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/apr/apr-util-1.6.1.tar.gz
 wget ftp://ftp.pcre.org/pub/pcre/pcre-8.43.tar.gz
-wget http://mirrors.tuna.tsinghua.edu.cn/apache//httpd/httpd-2.4.41.tar.gz
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/httpd/httpd-2.4.41.tar.gz
 wget http://mirror.bit.edu.cn/apache/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.46-src.tar.gz
 tar -xzvf apr-1.7.0.tar.gz
 tar -xzvf apr-util-1.6.1.tar.gz
