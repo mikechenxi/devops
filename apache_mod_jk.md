@@ -89,7 +89,7 @@ make install
 
 ## 8.配置 apache
 
-编辑 /app/apache/httpd/conf/httpd.conf, 末尾加上 
+编辑 /app/apache/httpd-2.4.43/conf/httpd.conf, 末尾加上 
 
 ```
 LoadModule deflate_module modules/mod_deflate.so
@@ -98,7 +98,7 @@ Include conf/mod_jk.conf
 AddOutputFilterByType DEFLATE text/html text/plain text/xml
 ```
 
-/app/apache/httpd/conf/ 目录新建 mod_jk.conf, 内容如下
+/app/apache/httpd-2.4.43/conf/ 目录新建 mod_jk.conf, 内容如下
 
 ```
 LoadModule jk_module modules/mod_jk.so
@@ -127,7 +127,7 @@ JkCIPHERIndicator SSL_CIPHER
 JkCERTSIndicator SSL_CLIENT_CERT
 ```
 
-/app/apache/httpd/conf/ 目录新建 workers.properties, 内容如下
+/app/apache/httpd-2.4.43/conf/ 目录新建 workers.properties, 内容如下
 
 ```
 worker.list = controller,status 
@@ -148,7 +148,7 @@ worker.app.retries=3
 # 192.168.189.133为tomcat所在服务器, 8009为tomcat ajp协议端口
 ```
 
-/app/apache/httpd/conf/ 目录新建 uriworkermap.properties, 内容如下
+/app/apache/httpd-2.4.43/conf/ 目录新建 uriworkermap.properties, 内容如下
 
 ```
 /*=controller
