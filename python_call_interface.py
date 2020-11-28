@@ -5,7 +5,7 @@ import urllib2
 from suds.client import Client
 import json
 
-def call_http(url, data, method = '', headers = {}):
+def call_http(url, data, method = 'POST', headers = {}):
     try:
         method = method.upper()
         req = urllib2.Request(url, data)
@@ -13,8 +13,7 @@ def call_http(url, data, method = '', headers = {}):
             for header in headers:
                 req.add_header(header, headers[header])
         req.add_header('Content-Type', 'application/json')
-        if method == 'PUT' or method == 'DELETE':
-            req.get_method = lambda: method
+        req.get_method = lambda: method
         res = urllib2.urlopen(req)
         #opener = urllib2.build_opener()
         #res = opener.open(url, data)
