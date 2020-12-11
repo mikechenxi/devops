@@ -64,7 +64,7 @@ http {
     listen       88;
     server_name  localhost;
     # dns resolver used by forward proxying
-    resolver 10.204.24.1;
+    resolver xx.xx.xx.xx;
     # forward proxy for CONNECT request
     proxy_connect;
     proxy_connect_allow all;
@@ -86,25 +86,13 @@ http {
 http {
   server {
     listen  80;
-    server_name oa.xx.com;
-    
-    location =/ {
-      rewrite ^(.*)$  http://$host/oa/main;
-    }
-
-    location /oa {
-      proxy_pass http://10.204.24.6/oa;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header REMOTE-HOST $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Forwarded-Proto  $scheme;
-    }
+    server_name xx.xx.com;
+    rewrite ^(.*)$  https://$host$1 permanent;
   }
 
   server {
     listen       443;
-    server_name  oa.xx.com;
+    server_name  xx.xx.com;
 
     ssl   on;
     ssl_certificate      /app/nginx/conf/https/a.pem;
@@ -119,7 +107,7 @@ http {
     }
     
     location /oa {
-            proxy_pass http://192.168.189.133:80/oa;
+            proxy_pass http://xx.xx.xx.xx/oa;
             proxy_redirect  off;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -129,8 +117,6 @@ http {
     }
   }
 }
-
-# 192.168.189.133为tomcat所在服务器, 80为tomcat http协议端口
 ```
 
 ## 9.配置 email 代理
