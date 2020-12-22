@@ -1,6 +1,6 @@
 # python issue
 
-## 接口返回中文
+## JSON 中文转换
 
 > 转换时增加 ensure_ascii = False 参数
 
