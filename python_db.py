@@ -85,7 +85,7 @@ def execute_mssql(sql, param = None):
     except Exception as e:
         print(e)
 
-
+# result: ((), ()), fields: ((), ())
 def format_data(result, fields):
     # 字段数组 ['id', 'name', 'password']
     field = []
