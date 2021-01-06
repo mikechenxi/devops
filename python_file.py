@@ -1,7 +1,6 @@
-import urllib, zipfile, os
+import urllib, urllib2, zipfile, os
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
-import urllib2
 
 
 def upload_file(url, file_full_name):
