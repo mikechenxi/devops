@@ -23,9 +23,10 @@ return json.dumps(data, ensure_ascii = False)
 import pymssql
 
 sql = 'select ....'
+param= ('', '')
 conn = pymssql.connect(host='db_host', port=db_port, user='db_user', password='db_password', database='db_name', charset='cp936')
 cursor = conn.cursor()
-cursor.execute(sql.encode('cp936'))
+cursor.execute(sql.encode('cp936'), param.encode('cp936'))
 data = cursor.fetchall()
 cursor.close()
 conn.close()
