@@ -47,8 +47,9 @@ def read_from_excel(file_full_name):
 
 def write_to_excel(data, file_full_name):
     workbook = openpyxl.Workbook()
-    workbook.create_sheet()
-    worksheet = workbook.active
+    worksheet = workbook.active  # 默认有一个名为'Sheet'的sheet 不需要create
+    #workbook.remove(worksheet)
+    #worksheet = workbook.create_sheet()
     alignment_title = Alignment(horizontal = 'center')
     font_title = Font(bold = True, size = 10)
     font_content = Font(size = 9)
@@ -70,7 +71,7 @@ def write_to_excel(data, file_full_name):
 
 def write_to_excel2(data, file_full_name):
     workbook = xlsxwriter.Workbook(file_full_name)
-    worksheet = workbook.add_worksheet()
+    worksheet = workbook.add_worksheet()  # 默认sheet名为 'Sheet1'
     style_title = workbook.add_format({'bold': True, 'align': 'center', 'font_size': 10})
     style_content = workbook.add_format({'font_size': 9})
     row_number = col_number = 0
