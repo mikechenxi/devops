@@ -29,11 +29,10 @@ def read_from_excel(file_full_name):
     workbook = openpyxl.load_workbook(file_full_name)
     sheetnames = workbook.sheetnames
     sheetname = workbook[sheetnames[0]]
-    titles = []
-    ret = []
+    titles = ret = []
     row_number = col_number = 0
     for row in sheetname.rows:
-        js = collections.OrderedDict()
+        js = {}
         for cell in row:
             if row_number == 0:
                 titles.append(cell.value)
