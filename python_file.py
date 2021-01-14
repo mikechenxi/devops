@@ -33,17 +33,19 @@ def read_from_excel(file_full_name):
     ret = []
     row_number = col_number = 0
     for row in sheetname.rows:
+        js = collections.OrderedDict()
         for cell in row:
             if row_number == 0:
                 titles.append(cell.value)
             else:
-                ret[row_number][titles[col_number]] = cell.value
+                js[titles[col_number]] = cell.value
                 col_number += 1
+        if row_number != 0:
+            ret.append(js)
         row_number += 1
         col_number = 0
     return ret
 
-# data [{'':'', '':''}, {'':'', '':''}]
 def write_to_excel(data, file_full_name):
     workbook = openpyxl.Workbook()
     workbook.create_sheet()
@@ -51,41 +53,40 @@ def write_to_excel(data, file_full_name):
     alignment_title = Alignment(horizontal = 'center')
     font_title = Font(bold = True, size = 10)
     font_content = Font(size = 9)
-    row = col = 1
-    for line in data:
-        if row == 1:
-            for key in line.keys():
-                worksheet.cell(row, col, str(key) if key is not None else '')
-                worksheet.cell(row, col).font = font_title
-                worksheet.cell(row, col).alignment = alignment_title
-                col += 1
-        row += 1
-        col = 1
-        for key in line.keys():
-            worksheet.cell(row, col, str(line[key]) if line[key] is not None else '')
-            worksheet.cell(row, col).font = font_content
-            col += 1
+    row_number = col_number = 1
+    for row in data:
+        if row_number == 1:
+            for key in row.keys():
+                worksheet.cell(row_number, col_number, str(key) if key is not None else '')
+                worksheet.cell(row_number, col_number).font = font_title
+                worksheet.cell(row_number, col_number).alignment = alignment_title
+                col_number += 1
+        row_number += 1
+        col_number = 1
+        for key in row.keys():
+            worksheet.cell(row_number, col_number, str(row[key]) if row[key] is not None else '')
+            worksheet.cell(row_number, col_number).font = font_content
+            col_number += 1
     workbook.save(file_full_name)
+    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
 
-# data [{'':'', '':''}, {'':'', '':''}]
 def write_to_excel2(data, file_full_name):
     workbook = xlsxwriter.Workbook(file_full_name)
     worksheet = workbook.add_worksheet()
     style_title = workbook.add_format({'bold': True, 'align': 'center', 'font_size': 10})
     style_content = workbook.add_format({'font_size': 9})
-    row = col = 0
-    for line in data:
-        if row == 0:
-            for key in line.keys():
-                worksheet.write(row, col, key, style_title)
-                col += 1
-        row += 1
-        col = 0
-        for key in line.keys():
-            worksheet.write(row, col, str(line[key]) if line[key] is not None else '', style_content)
-            col += 1
+    row_number = col_number = 0
+    for row in data:
+        if row_number == 0:
+            for key in row.keys():
+                worksheet.write(row_number, col_number, str(key) if key is not None else '', style_title)
+                col_number += 1
+        row_number += 1
+        col_number = 0
+        for key in row.keys():
+            worksheet.write(row_number, col_number, str(row[key]) if row[key] is not None else '', style_content)
+            col_number += 1
     workbook.close()
     log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
-
     
 # 上传函数参考: https://my.oschina.net/whp/blog/127909
