@@ -28,10 +28,10 @@ def zip_directory(directory_path, file_full_name):
 def read_from_excel(file_full_name):
     workbook = openpyxl.load_workbook(file_full_name)
     sheetnames = workbook.sheetnames
-    sheetname = workbook[sheetnames[0]]
+    worksheet = workbook[sheetnames[0]]
     titles = ret = []
     row_number = col_number = 0
-    for row in sheetname.rows:
+    for row in worksheet.rows:
         js = {}
         for cell in row:
             if row_number == 0:
@@ -67,7 +67,6 @@ def write_to_excel(data, file_full_name):
             worksheet.cell(row_number, col_number).font = font_content
             col_number += 1
     workbook.save(file_full_name)
-    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
 
 def write_to_excel2(data, file_full_name):
     workbook = xlsxwriter.Workbook(file_full_name)
@@ -86,6 +85,5 @@ def write_to_excel2(data, file_full_name):
             worksheet.write(row_number, col_number, str(row[key]) if row[key] is not None else '', style_content)
             col_number += 1
     workbook.close()
-    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
-    
+
 # 上传函数参考: https://my.oschina.net/whp/blog/127909
