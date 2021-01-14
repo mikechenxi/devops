@@ -46,10 +46,10 @@ def read_from_excel(file_full_name):
     return ret
 
 def write_to_excel(data, file_full_name):
-    workbook = openpyxl.Workbook()
-    worksheet = workbook.active  # 默认有一个名为'Sheet'的sheet 不需要create
-    #workbook.remove(worksheet)
-    #worksheet = workbook.create_sheet()
+    workbook = openpyxl.Workbook()  # 默认有一个名为'Sheet'的sheet
+    workbook.create_sheet()  # 创建 'Sheet1'
+    workbook.remove(workbook.active)  # 删除 'Sheet'  这两行可以不要，只是强迫症要设置sheet名为'Sheet1'
+    worksheet = workbook.active
     alignment_title = Alignment(horizontal = 'center')
     font_title = Font(bold = True, size = 10)
     font_content = Font(size = 9)
