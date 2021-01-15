@@ -1,4 +1,4 @@
-# nginx 配置 http 正向代理、反向代理以及 email 代理
+# nginx 配置 http 正向代理、定向 http 正向代理、反向代理以及 email 代理
 
 
 > 工作目录目录为 /home
@@ -61,10 +61,10 @@
 ```
 http {
   server {
-    listen       88;
+    listen 80;
     server_name  localhost;
     # dns resolver used by forward proxying
-    resolver xx.xx.xx.xx;
+    resolver xx.xx.xx.xx;  # dns
     # forward proxy for CONNECT request
     proxy_connect;
     proxy_connect_allow all;
@@ -80,7 +80,22 @@ http {
 }
 ```
 
-## 8.配置 http 反向代理
+## 8.配置定向 http 正向代理
+
+```
+http {
+  server {
+    listen  80;
+    server_name xx.xx.com;
+    location / {
+      resolver xx.xx.xx.xx;  # dns
+      proxy_pass https://qyapi.weixin.qq.com/;
+    }
+  }
+}
+```
+
+## 9.配置 http 反向代理
 
 ```
 http {
@@ -91,7 +106,7 @@ http {
   }
 
   server {
-    listen       443;
+    listen 443;
     server_name  xx.xx.com;
 
     ssl   on;
@@ -107,19 +122,19 @@ http {
     }
     
     location /oa {
-            proxy_pass http://xx.xx.xx.xx/oa;
-            proxy_redirect  off;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header REMOTE-HOST $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto  $scheme;
+      proxy_pass http://xx.xx.xx.xx/oa;
+      proxy_redirect  off;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header REMOTE-HOST $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto  $scheme;
     }
   }
 }
 ```
 
-## 9.配置 email 代理
+## 10.配置 email 代理
 
 ```
 stream{
@@ -131,7 +146,7 @@ stream{
 }
 ```
 
-## 10.启动、快速停止、 正常停止、重新加载配置文件nginx
+## 11.启动、快速停止、 正常停止、重新加载配置文件nginx
 
 ```
   /app/nginx-1.12.2/sbin/nginx
@@ -140,7 +155,7 @@ stream{
   /app/nginx-1.12.2/sbin/nginx -s reload
 ```
 
-## 11.测试代理是否生效
+## 12.测试代理是否生效
 
 > 10.204.24.2 为 nginx 代理服务器
 
