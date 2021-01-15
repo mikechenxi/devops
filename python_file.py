@@ -103,7 +103,6 @@ def write_to_excel3(data, file_full_name):
     font_title = Font(bold = True, size = 10)
     font_content = Font(size = 9)
     keys = data[0].keys()
-    row_number = 1
     row = []
     for key in keys:
         cell = WriteOnlyCell(worksheet, str(key) if key is not None else '')
@@ -112,7 +111,6 @@ def write_to_excel3(data, file_full_name):
         row.append(cell)
     worksheet.append(row)
     for js in data:
-        row_number += 1
         row = []
         for key in keys:
             cell = WriteOnlyCell(worksheet, str(js[key]) if js[key] is not None else '')
