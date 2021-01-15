@@ -27,8 +27,7 @@ def zip_directory(directory_path, file_full_name):
 
 def read_from_excel(file_full_name):
     workbook = openpyxl.load_workbook(file_full_name)
-    sheetnames = workbook.sheetnames
-    worksheet = workbook[sheetnames[0]]
+    worksheet = workbook[workbook.sheetnames[0]]  # 默认读取第一个sheet
     titles = ret = []
     row_number = col_number = 0
     for row in worksheet.rows:
