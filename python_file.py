@@ -1,7 +1,8 @@
 import urllib, urllib2, zipfile, os, sys, xlsxwriter, openpyxl
-from openpyxl.styles import Font, Alignment
 from poster.encode import multipart_encode
 from poster.streaminghttp import register_openers
+from openpyxl.cell import WriteOnlyCell
+from openpyxl.styles import Font, Alignment
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -97,7 +98,7 @@ def write_to_excel3(data, file_full_name):
     workbook = openpyxl.Workbook(write_only = True)  # 默认无sheet
     workbook.create_sheet()  # 创建名为'Sheet'的sheet
     worksheet = workbook.create_sheet()  # 创建名为'Sheet1'的sheet
-    workbook.remove(workbook[workbook.sheetnames[0]])  # 删除名为'Sheet'的sheet  以上两行可以不要，只是OCD患者一定要 sheet从'Sheet1'开始
+    workbook.remove(workbook[workbook.sheetnames[0]])  # 删除名为'Sheet'的sheet  以上两行可以不要，只是OCD患者一定要sheet从'Sheet1'开始
     alignment_title = Alignment(horizontal = 'center')
     font_title = Font(bold = True, size = 10)
     font_content = Font(size = 9)
