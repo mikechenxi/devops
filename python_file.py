@@ -6,6 +6,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
+# 参考: https://my.oschina.net/whp/blog/127909
 def upload_file(url, file_full_name):
     register_openers()
     datagen, headers = multipart_encode({'file': open(file_full_name, 'rb')})
@@ -59,14 +60,13 @@ def write_to_excel(data, file_full_name):
     for key in keys:
         worksheet.write(row_number, col_number, str(key) if key is not None else '', style_title)
         col_number += 1
-    for row in data:
+    for js in data:
         row_number += 1
         col_number = 0
-        for key in row.keys():
-            worksheet.write(row_number, col_number, str(row[key]) if row[key] is not None else '', style_content)
+        for key in keys:
+            worksheet.write(row_number, col_number, str(js[key]) if js[key] is not None else '', style_content)
             col_number += 1
     workbook.close()
-    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
 
 def write_to_excel2(data, file_full_name):
     workbook = openpyxl.Workbook()  # 默认有一个名为'Sheet'的sheet
@@ -84,15 +84,14 @@ def write_to_excel2(data, file_full_name):
         worksheet.cell(row_number, col_number).font = font_title
         worksheet.cell(row_number, col_number).alignment = alignment_title
         col_number += 1
-    for row in data:
+    for js in data:
         row_number += 1
         col_number = 1
         for key in keys:
-            worksheet.cell(row_number, col_number, str(row[key]) if row[key] is not None else '')
+            worksheet.cell(row_number, col_number, str(js[key]) if js[key] is not None else '')
             worksheet.cell(row_number, col_number).font = font_content
             col_number += 1
     workbook.save(file_full_name)
-    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
 
 def write_to_excel3(data, file_full_name):
     workbook = openpyxl.Workbook(write_only = True)  # 默认无sheet
@@ -104,23 +103,20 @@ def write_to_excel3(data, file_full_name):
     font_content = Font(size = 9)
     keys = data[0].keys()
     row_number = 1
-    li_cell = []
+    row = []
     for key in keys:
         cell = WriteOnlyCell(worksheet, str(key) if key is not None else '')
         cell.font = font_title
         cell.alignment = alignment_title
-        li_cell.append(cell)
-    worksheet.append(li_cell)
-    for row in data:
+        row.append(cell)
+    worksheet.append(row)
+    for js in data:
         row_number += 1
-        li_cell = []
+        row = []
         for key in keys:
-            cell = WriteOnlyCell(worksheet, str(row[key]) if row[key] is not None else '')
+            cell = WriteOnlyCell(worksheet, str(js[key]) if js[key] is not None else '')
             cell.font = font_content
             cell.alignment = alignment_title
-            li_cell.append(cell)
-        worksheet.append(li_cell)
+            row.append(cell)
+        worksheet.append(row)
     workbook.save(file_full_name)
-    log_util.log('file_util.write_to_excel', 'filename:%s' % (file_full_name))
-
-# 上传函数参考: https://my.oschina.net/whp/blog/127909
