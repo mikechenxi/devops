@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 # MySQL & SQL Server
 
-import pymysql
-import pymssql
+import pymysql, pymssql, collections, sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 
 def query_mysql(sql, param = None):
@@ -94,7 +95,7 @@ def format_data(result, fields):
     # 返回的数组集合 形式[{'id': 1, 'name': 'admin', 'password': '123456'}]
     res = []
     for iter in result:
-        line_data = {}
+        line_data = collections.OrderedDict()
         for index in range(0, len(field)):
             line_data[field[index]] = iter[index]
         res.append(line_data)
