@@ -16,7 +16,7 @@ public class java_call_http {
         String result = "";
         try {
             URL httpUrl = new URL(url);
-            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("xx.xx.xx.xx", 88));
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxy_url, proxy_port));
             HttpURLConnection conn;
             if (userProxy == false)
                 conn = (HttpURLConnection) httpUrl.openConnection();
