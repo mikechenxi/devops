@@ -5,19 +5,16 @@ import urllib2
 from suds.client import Client
 import json
 
-def call_http(url, data, method = 'POST', headers = {}):
+def call_http(url, data = None, method = 'POST', headers = {}):
     try:
-        method = method.upper()
-        req = urllib2.Request(url, data)
-        if len(headers) > 0:
-            for header in headers:
-                req.add_header(header, headers[header])
-        req.add_header('Content-Type', 'application/json')
-        req.get_method = lambda: method
+        if data is not None:
+            data = json.dumps(data)
+        headers['Content-Type'] = 'application/json'
+        req = urllib2.Request(url, data, headers)
+        req.get_method = lambda: method.upper()
         res = urllib2.urlopen(req)
-        #opener = urllib2.build_opener()
-        #res = opener.open(url, data)
-        return res.read()
+        result = res.read()
+        return result
     except Exception as e:
         print(e)
 
