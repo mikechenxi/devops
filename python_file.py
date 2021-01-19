@@ -11,9 +11,9 @@ sys.setdefaultencoding('utf-8')
 def upload_file(url, file_full_name):
     register_openers()
     datagen, headers = multipart_encode({'file': open(file_full_name, 'rb')})
-    request = urllib2.Request(url, datagen, headers)
-    ret = urllib2.urlopen(request).read()
-    return ret
+    req = urllib2.Request(url, datagen, headers)
+    res = urllib2.urlopen(req)
+    return res.read()
 
 def download_file(url, file_full_name):
     urllib.urlretrieve(url, file_full_name)
