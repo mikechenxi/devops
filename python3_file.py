@@ -3,7 +3,7 @@ from openpyxl.cell import WriteOnlyCell
 from openpyxl.styles import Font, Alignment
 
 
-# 用 urllib.request 实在是搞不定... python3 open() 函数返回的不是 file 对象了...
+# 用 urllib.request 实在是搞不定... python3 中 open() 函数返回的不是 file 对象了, 而是流...
 def upload_file(url, file_full_name):
     file_name = os.path.basename(file_full_name)
     file = open(file_full_name, 'rb')
