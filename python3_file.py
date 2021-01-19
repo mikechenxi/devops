@@ -21,7 +21,7 @@ def zip_directory(directory_path, file_full_name):
         file_path = directory.replace(directory_path, '')  # 这一句很重要，不replace的话，就从根目录开始复制
         file_path = file_path and file_path + os.sep or '' # 实现文件夹以及包含的所有文件的压缩
         for file_name in file_names:
-            zip.write(os.path.join(directory, file_name).decode(encoding = 'GBK'), file_path + file_name)
+            zip.write(os.path.join(directory, file_name), file_path + file_name)
     zip.close()
 
 def read_from_excel(file_full_name):
