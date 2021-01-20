@@ -1,5 +1,52 @@
 # python issue
 
+## python2 和 python3 共存
+
+```
+python3 安装目录中修改 python.exe 为 python3.exe, pythonw.exe 为 pythonw3.exe
+python3 -m pip install --upgrade pip --force-reinstall  # python3
+python -m pip install --upgrade pip --force-reinstall  # python2
+```
+
+https://www.cnblogs.com/qzf-kuku/p/10248891.html
+
+## python3 ImportError: No module named _ssl 解决方法， 需要升级 openssl
+
+```
+cd /home/openssl-1.1.0l
+./config --prefix=/usr/local/openssl-1.1.01
+make
+make install
+
+vim /etc/ld.so.conf.d/openssl.conf
+录入 /usr/local/openssl-1.1.01/lib/ 保存
+更新共享库
+ldconfig
+检验 openssl-1.1.1 是否已加入共享库
+ldconfig -v | grep ssl
+
+/usr/local/openssl-1.1.01/lib:
+    libssl.so.1.1 -> libssl.so.1.1    '''有这个表示加成功了'''
+    libssl3.so -> libssl3.so
+    libssl.so.10 -> libssl.so.1.0.1e
+
+cd /home/Python-3.7.5/
+./configure --with-openssl=/usr/local/openssl-1.1.01
+make && make install
+```
+
+https://blog.51cto.com/tchuairen/2435472
+
+## 安装uwsgi出现关于SSL错误的问题 因为 openssl 版本比较久 或者系统存在多个openssl 版本
+
+```
+yum remove openssl-devel
+```
+
+https://www.cnblogs.com/shmily3929/p/10109182.html
+
+https://blog.csdn.net/rongdang/article/details/102871874
+
 ## JSON 中文转换
 
 > 转换时增加 ensure_ascii = False 参数
