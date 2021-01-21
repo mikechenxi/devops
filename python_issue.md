@@ -33,11 +33,14 @@ ldconfig -v | grep ssl
 cd /home/Python-3.7.5/
 ./configure --with-openssl=/usr/local/openssl-1.1.01
 make && make install
+
+ln -s /usr/local/bin/python3 /usr/bin/python3
+ln -s /usr/local/bin/pip3 /usr/bin/pip3
 ```
 
 https://blog.51cto.com/tchuairen/2435472
 
-## centos6 安装新版本 openssl 后安装 uwsgi 出现关于SSL错误的问题 因为 openssl 版本比较久 或者系统存在多个openssl 版本
+## centos6 安装新版本 openssl 后安装 uwsgi 出现关于SSL错误的问题 因为 openssl 版本比较久 或者系统存在多个openssl 版本 移除旧版本openssl
 
 ```
 yum remove openssl-devel
