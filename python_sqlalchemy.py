@@ -77,7 +77,3 @@ filter_list.delete()
 db_session.commit()
 
 db_session.close()
-
-
-# https://www.cnblogs.com/caesar-id/p/11079774.html
-# https://blog.csdn.net/chenmixuexi_/article/details/109010082
