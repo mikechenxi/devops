@@ -43,19 +43,28 @@ db_session.add_all(obj_list)
 db_session.commit()
 
 # retrieve
-all_list = db_session.query(User).all()
-all_list = db_session.query(User.id.label('idd'), User.age)
-all_list = db_session.query(User).order_by(User.id.asc()).all()
-for obj in all_list:
-    print(obj.id, obj.name, obj.age, obj.score, obj.board_date)
+filter_list = db_session.query(User).all()
+filter_list = db_session.query(User).first()
+filter_list = db_session.query(User).count()
+filter_list = db_session.query(User).limit(2)
+filter_list = db_session.query(User).distinct()
+filter_list = db_session.query(User).order_by(User.id.asc()).all()
+filter_list = db_session.query(User.id.label('idd'), User.age)
 filter_list = db_session.query(User).filter(User.age == 12)
 filter_list = db_session.query(User).filter(User.age > 12)
 filter_list = db_session.query(User).filter(User.age <= 12)
+filter_list = db_session.query(User).get(1)  # use primary key
 filter_list = db_session.query(User).filter(and_(User.age == 12, User.id == 1))
 filter_list = db_session.query(User).filter(or_(User.age == 12, User.id == 2))
 filter_list = db_session.query(User).filter(User.id.in_([1,2]))
 filter_list = db_session.query(User).filter(User.id.notin_([1,2]))
+filter_list = db_session.query(User).filter(User.name.like('%name%'))
+filter_list = db_session.query(User).filter(User.name.notlike('%name%'))
+filter_list = db_session.query(User).filter(User.name.is_(None))
+filter_list = db_session.query(User).filter(User.name.isnot_(None))
 filter_list = db_session.query(func.count(User.age).label('count'), User.age).group_by(User.age)
+for obj in filter_list:
+    print(obj.id, obj.name, obj.age, obj.score, obj.board_date)
 
 # update
 filter_list = db_session.query(User).filter(User.age =='12')
