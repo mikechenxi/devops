@@ -22,32 +22,37 @@ class User(Base):
     name = Column(String(32))
     age = Column(Integer)
 
+# create table
 Base.metadata.create_all(engine)
 
 obj_session = sessionmaker(engine)
 db_session = obj_session()
 
-obj = User(name='name',age=12)
+# create
+obj = User(name = 'name', age = 12)
 obj_list = [
-    User(name='name2', age=13),
-    User(name='name3', age=14)
+    User(name = 'name2', age = 13),
+    User(name = 'name3', age = 14)
 ]
 db_session.add(obj)
 db_session.add_all(obj_list)
 db_session.commit()
 
+# retrieve
 all_list = db_session.query(User).all()
 for obj in all_list:
-    print(obj.id,obj.name,obj.age)
-filter_list = db_session.query(User).filter(User.age=='12')
+    print(obj.id, obj.name, obj.age)
+filter_list = db_session.query(User).filter(User.age =='12')
 for obj in filter_list:
-    print(obj.id,obj.name,obj.age)
+    print(obj.id, obj.name, obj.age)
 
-filter_list = db_session.query(User).filter(User.age=='12')
+# update
+filter_list = db_session.query(User).filter(User.age =='12')
 filter_list.update({'age':20})
 db_session.commit()
 
-filter_list = db_session.query(User).filter(User.age=='20')
+# delete
+filter_list = db_session.query(User).filter(User.age =='20')
 filter_list.delete()
 db_session.commit()
 
