@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, Numeric, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import and_, or_, asc, desc, func
 
 connect_args = {
     'user': 'root',
@@ -34,7 +35,7 @@ db_session = obj_session()
 # create
 obj = User(name = 'name', age = 12, score = 12.5, board_date = '2020-01-01 19:30:05')
 obj_list = [
-    User(name = 'name2', age = 13, score = 15, board_date = '2020-02-03 00:00:00'),
+    User(name = 'name2', age = 12, score = 15, board_date = '2020-02-03 00:00:00'),
     User(name = 'name3', age = 14, score = 14.32, board_date = '2020-04-01')
 ]
 db_session.add(obj)
@@ -43,11 +44,18 @@ db_session.commit()
 
 # retrieve
 all_list = db_session.query(User).all()
+all_list = db_session.query(User.id.label('idd'), User.age)
+all_list = db_session.query(User).order_by(User.id.asc()).all()
 for obj in all_list:
     print(obj.id, obj.name, obj.age, obj.score, obj.board_date)
-filter_list = db_session.query(User).filter(User.age =='12')
-for obj in filter_list:
-    print(obj.id, obj.name, obj.age, obj.score, obj.board_date)
+filter_list = db_session.query(User).filter(User.age == 12)
+filter_list = db_session.query(User).filter(User.age > 12)
+filter_list = db_session.query(User).filter(User.age <= 12)
+filter_list = db_session.query(User).filter(and_(User.age == 12, User.id == 1))
+filter_list = db_session.query(User).filter(or_(User.age == 12, User.id == 2))
+filter_list = db_session.query(User).filter(User.id.in_([1,2]))
+filter_list = db_session.query(User).filter(User.id.notin_([1,2]))
+filter_list = db_session.query(func.count(User.age).label('count'), User.age).group_by(User.age)
 
 # update
 filter_list = db_session.query(User).filter(User.age =='12')
@@ -63,3 +71,4 @@ db_session.close()
 
 
 # https://www.cnblogs.com/caesar-id/p/11079774.html
+# https://blog.csdn.net/chenmixuexi_/article/details/109010082
