@@ -19,11 +19,7 @@ def call_http(url, data = None, method = 'POST', headers = {}):
 # func is one of the functions in this interface
 def call_webservice(url, func, data, headers = {}):
     try:
-        client = None
-        if len(headers) > 0:
-            client = Client(url, headers = headers)
-        else:
-            client = Client(url)
+        client = Client(url, headers = headers)
         data_type = type(data).__name__
         expression = 'client.service.' + func + '('
         if data_type == 'tuple' or data_type == 'list':
