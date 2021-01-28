@@ -1,5 +1,4 @@
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Numeric, DateTime
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, Numeric, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.sql import and_, or_, asc, desc, func
@@ -29,6 +28,7 @@ class User(Base):
 # create table
 Base.metadata.create_all(engine)
 
+# use sessionmaker
 db_session = sessionmaker(engine)()
 # db_session = scoped_session(sessionmaker(engine))
 
@@ -41,7 +41,6 @@ obj_list = [
 db_session.add(obj)
 db_session.add_all(obj_list)
 db_session.commit()
-
 # retrieve
 filter_list = db_session.query(User).all()
 filter_list = db_session.query(User).first()
@@ -66,15 +65,35 @@ filter_list = db_session.query(func.count(User.age).label('count'), User.age).gr
 for obj in filter_list:
     print(obj.id, obj.name, obj.age, obj.score, obj.board_date)
     #print('\n'.join(['%s:%s' % item for item in obj.__dict__.items()]))
-
 # update
 filter_list = db_session.query(User).filter(User.age =='12')
 filter_list.update({'age':20})
 db_session.commit()
-
 # delete
 filter_list = db_session.query(User).filter(User.age =='20')
 filter_list.delete()
 db_session.commit()
 
 db_session.close()
+
+# use metadata
+metadata = MetaData(engine)
+users = Table('users', metadata, autoload = True)
+
+con = engine.connect()
+con.execute(users.insert(), name = 'name5', age = 23, score = 12.5, board_date = '2020-01-03 12:00:00')
+con.execute(users.select(users.c.id == 18)).first()
+con.execute(users.update(users.c.id == 18), name = 'aaa', age=1123)
+con.execute(users.delete(users.c.id == 18))
+con.close()
+
+users.insert({users.c.name: 'aa'}).execute()
+users.select(users.c.id == 1).execute().first()
+users.update(users.c.id == 5, {users.c.age: 123}).execute()
+users.delete(users.c.id == 5).execute()
+
+# use engine
+engine.execute('insert into users (name) values ("aaaa")')
+engine.execute('select * from users where id = 1').first()
+engine.execute('update users set age = 111 where id = 5')
+engine.execute('delete from users where id = 5')
