@@ -104,8 +104,7 @@ data.get('xxxx')
 > 重写构造json类，遇到日期特殊处理，其余的用内置的就行
 
 ``` python
-import json
-import datetime
+import json, datetime
 
 class DateEncoder(json.JSONEncoder):  
     def default(self, obj):  
@@ -128,4 +127,18 @@ data = [
 ]
 
 json.dumps(data, cls=DateEncoder)
+```
+
+## 'Decimal' is not JSON serializable
+
+``` python
+import json, decimal
+
+class DecimalEncoder(json.JSONEncoder):
+　　def default(self, o):
+　　　　if isinstance(o, decimal.Decimal):
+　　　　　　return float(o)
+　　　　super(DecimalEncoder, self).default(o)
+
+json.dumps(ret_list, cls=DecimalEncoder)
 ```
