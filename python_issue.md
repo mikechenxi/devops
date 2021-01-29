@@ -54,10 +54,20 @@ https://www.cnblogs.com/shmily3929/p/10109182.html
 
 https://blog.csdn.net/rongdang/article/details/102871874
 
-# uwsgi + flask_apscheduler 定时任务不执行
+## uwsgi + flask_apscheduler 定时任务不执行
 
  - 原因：uwsgi 默认one thread one processor ,所以在没有请求的时候，导致部分进程被挂起
  - 解决方法：在uwsgi配置中添加enable-threads = true
+
+## python3 提示 certificate verify failed: unable to get local issuer certificate
+
+  - 错误原因：这是一个SSL证书验证错误，当请求一个https站点，但是证书验证错误时，就会报这样的错误。
+  - 解决方法：只需在代码中加入如下两行将跳过证书的检查，即可成功访问网页。
+
+``` python
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+```
 
 ## JSON 中文转换
 
