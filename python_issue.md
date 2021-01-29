@@ -10,7 +10,9 @@ python -m pip install --upgrade pip --force-reinstall  # python2
 
 https://www.cnblogs.com/qzf-kuku/p/10248891.html
 
-## centos6 中 python3 ImportError: No module named _ssl 解决方法， 需要升级 openssl
+## centos6 中 python3 ImportError: No module named _ssl
+
+ - openssl版本太低, 需要升级 openssl
 
 ```
 cd /home/openssl-1.1.0l
@@ -40,7 +42,9 @@ ln -s /usr/local/bin/pip3 /usr/bin/pip3
 
 https://blog.51cto.com/tchuairen/2435472
 
-## centos6 安装新版本 openssl 后安装 uwsgi 出现关于SSL错误的问题 因为 openssl 版本比较久 或者系统存在多个openssl 版本 移除旧版本openssl
+## centos6 安装新版本 openssl 后安装 uwsgi 出现关于SSL错误的问题 
+
+ - openssl 版本比较久 或者系统存在多个openssl 版本 移除旧版本openssl
 
 ```
 yum remove openssl-devel
