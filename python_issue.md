@@ -50,6 +50,11 @@ https://www.cnblogs.com/shmily3929/p/10109182.html
 
 https://blog.csdn.net/rongdang/article/details/102871874
 
+# uwsgi + flask_apscheduler 定时任务不执行
+
+ - 原因：uwsgi 默认one thread one processor ,所以在没有请求的时候，导致部分进程被挂起
+ - 解决方法：在uwsgi配置中添加enable-threads = true
+
 ## JSON 中文转换
 
 > 转换时增加 ensure_ascii = False 参数
