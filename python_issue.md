@@ -33,7 +33,7 @@ ldconfig -v | grep ssl
     libssl.so.10 -> libssl.so.1.0.1e
 
 cd /home/Python-3.7.5/
-./configure --with-openssl=/usr/local/openssl-1.1.01
+./configure --prefix=/usr/local/python3.7 --with-openssl=/usr/local/openssl-1.1.01
 make && make install
 
 ln -s /usr/local/bin/python3 /usr/bin/python3
