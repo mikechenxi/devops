@@ -22,8 +22,8 @@ func main(){
 # require certification if use ssl
 func SendEmail(receivers []string, subject string, content string) error {
     auth := smtp.PlainAuth("", user, password, host)
-    message := []byte("To: " + strings.Join(receivers, ",") + "\r\n" +
-        "From: " + name + "<" + user + ">" + "\r\n" +
+    message := []byte("From: " + name + "<" + user + ">" + "\r\n" +
+        "To: " + strings.Join(receivers, ",") + "\r\n" +
         "Subject: " + subject + "\r\n" +
         "Content-Type: text/html;charset=UTF-8" + "\r\n\r\n" +
         content)
