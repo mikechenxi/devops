@@ -39,6 +39,7 @@ public class java_call_http {
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setDoInput(true);
 
+            data = data == null ? "" : data;
             outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream(), "UTF-8");
             outputStreamWriter.write(data);
             outputStreamWriter.flush();
