@@ -4,8 +4,12 @@ import json
 
 
 # or just use requests.get, requests.post, requests.put, requests.delete ...
-def call_http(url, data = None, method = 'POST', headers = {}):
+def call_http(url, data = None, method = 'POST', headers = {}, use_proxy = False):
     try:
+        if use_proxy:
+            proxy_handler = urllib.request.ProxyHandler({'http': 'xxx.xxx.xxx.xxx:80', 'https': 'xxx.xxx.xxx.xxx:80'})
+            opener = urllib.request.build_opener(proxy_handler)
+            urllib.request.install_opener(opener)
         if data is not None:
             data = bytes(json.dumps(data), 'utf-8')
         headers['Content-Type'] = 'application/json'
