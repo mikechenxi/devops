@@ -2,7 +2,7 @@ import configparser
 
 def get_config(section, option):
     try:
-        cf = configparser.ConfigParser()
+        cf = configparser.RawConfigParser()
         cf.read('.config.ini')
         if cf.has_option(section, option):
             return cf.get(section, option)
@@ -28,7 +28,7 @@ def get_configs(configs):
 
 def set_config(section, option, value):
     try:
-        cf = configparser.ConfigParser()
+        cf = configparser.RawConfigParser()
         cf.read('.config.ini')
         if not cf.has_section(section):
             add_section(section)
@@ -48,7 +48,7 @@ def set_configs(configs):
 
 def remove_config(section, option):
     try:
-        cf = configparser.ConfigParser()
+        cf = configparser.RawConfigParser()
         cf.read('.config.ini')
         if cf.has_option(section, option):
             cf.remove_option(section, option)
@@ -66,7 +66,7 @@ def remove_configs(configs):
 
 def add_section(section):
     try:
-        cf = configparser.ConfigParser()
+        cf = configparser.RawConfigParser()
         cf.read('.config.ini')
         if not cf.has_section(section):
             cf.add_section(section)
@@ -83,7 +83,7 @@ def add_sections(sections):
 
 def remove_section(section):
     try:
-        cf = configparser.ConfigParser()
+        cf = configparser.RawConfigParser()
         cf.read('.config.ini')
         if cf.has_section(section):
             cf.remove_section(section)
