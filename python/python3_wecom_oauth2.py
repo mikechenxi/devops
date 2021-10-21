@@ -3,7 +3,7 @@
 # home page: https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxxx&redirect_uri=https://xx.xxxx.com/oauth&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect
 # https://xx.xxxx.com/oauth
 
-from flask import Flask
+from flask import Flask, request
 import requests, json
 
 app = Flask(__name__)
