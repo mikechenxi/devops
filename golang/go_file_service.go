@@ -12,6 +12,12 @@ import (
 )
 
 func main(){
+    port := GetPort()
+    go CheckPort(port)
+    StartHttp(port)
+}
+
+func GetPort() string {
     var port string
     is_num := false
     for is_num == false {
@@ -27,18 +33,10 @@ func main(){
             }
         }
     }
-
-    go CheckPort2(port)
-
-    p, _ := filepath.Abs(filepath.Dir(os.Args[0]))
-    http.Handle("/", http.FileServer(http.Dir(p)))
-    err := http.ListenAndServe(":" + port, nil)
-    if err != nil {
-        fmt.Println(err)
-    }
+    return port
 }
 
-func CheckPort2(port string) {
+func CheckPort(port string) {
     fmt.Println("服务(" + port + ")启动中...")
     for {
         time.Sleep(time.Millisecond)
@@ -53,10 +51,10 @@ func CheckPort2(port string) {
         break
     }
     fmt.Println("服务(" + port + ")已启动...")
-    DisplayRemind2(port)
+    DisplayRemind(port)
 }
 
-func DisplayRemind2(port string) {
+func DisplayRemind(port string) {
     addrs, err := net.InterfaceAddrs()
     if err != nil{
         fmt.Println(err)
@@ -74,6 +72,15 @@ func DisplayRemind2(port string) {
                 }
             }
         }
+    }
+}
+
+func StartHttp(port string){
+    p, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+    http.Handle("/", http.FileServer(http.Dir(p)))
+    err := http.ListenAndServe(":" + port, nil)
+    if err != nil {
+        fmt.Println(err)
     }
 }
 
