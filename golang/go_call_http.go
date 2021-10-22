@@ -9,7 +9,11 @@ import (
     "strings"
 )
 
-func CallHttp(requestUrl string, requestData map[string]interface{}, method string) interface{}{
+func main(){
+    fmt.Println(callHttp("https://www.baidu.com", nil, "GET"))
+}
+
+func callHttp(requestUrl string, requestData map[string]interface{}, method string) interface{}{
     method = strings.ToUpper(method)
     var resp *http.Response
     var err error
