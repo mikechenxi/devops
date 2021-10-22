@@ -11,13 +11,13 @@ import (
 )
 
 func main(){
-    port := GetPort()
-    go CheckPort(port)
+    port := getPort()
+    go checkPort(port)
     //time.Sleep(time.Millisecond)
-    StartHttp(port)
+    startHttp(port)
 }
 
-func GetPort() string {
+func getPort() string {
     port := ""
     isNum := false
     for isNum == false {
@@ -26,7 +26,7 @@ func GetPort() string {
         if len(port) == 0 {
             continue
         } else {
-            isNum = IsNum(port)
+            isNum = isNum(port)
             if isNum == false {
                 port = ""
                 fmt.Println("端口号需为纯数字")
@@ -36,7 +36,7 @@ func GetPort() string {
     return port
 }
 
-func CheckPort(port string) {
+func checkPort(port string) {
     fmt.Println("服务(" + port + ")启动中...")
     for {
         resp, err := http.Get("http://localhost:" + port)
@@ -50,15 +50,15 @@ func CheckPort(port string) {
         break
     }
     fmt.Println("服务(" + port + ")已启动...")
-    ip, err := GetActualIP()
+    ip, err := getActualIP()
     if err != nil {
         fmt.Println(err)
     } else {
-        ShowRemind(ip.String(), port)
+        showRemind(ip.String(), port)
     }
 }
 
-func StartHttp(port string) {
+func startHttp(port string) {
     p, _ := filepath.Abs(filepath.Dir(os.Args[0]))
     http.Handle("/", http.FileServer(http.Dir(p)))
     err := http.ListenAndServe(":"+port, nil)
@@ -67,13 +67,13 @@ func StartHttp(port string) {
     }
 }
 
-func ShowRemind(ip, port string) {
+func showRemind(ip, port string) {
     fmt.Println("请在浏览器打开 http://" + ip + ":" + port + " 来访问共享文件")
     fmt.Println("共享目录为本程序所在目录")
     fmt.Println("直接关掉本窗口即可停止共享")
 }
 
-func GetActualIP() (net.IP, error) {
+func getActualIP() (net.IP, error) {
     ifaces, err := net.Interfaces()
     if err != nil {
         return nil, err
@@ -90,7 +90,7 @@ func GetActualIP() (net.IP, error) {
             return nil, err
         }
         for _, addr := range addrs {
-            ip := GetIpFromAddr(addr)
+            ip := getIpFromAddr(addr)
             if ip == nil {
                 continue
             }
@@ -100,7 +100,7 @@ func GetActualIP() (net.IP, error) {
     return nil, errors.New("connected to the network?")
 }
 
-func GetIpFromAddr(addr net.Addr) net.IP {
+func getIpFromAddr(addr net.Addr) net.IP {
     var ip net.IP
     switch v := addr.(type) {
     case *net.IPNet:
@@ -118,7 +118,7 @@ func GetIpFromAddr(addr net.Addr) net.IP {
     return ip
 }
 
-func IsNum(port string) bool {
+func isNum(port string) bool {
     _, err := strconv.ParseFloat(port, 64)
     return err == nil
 }
