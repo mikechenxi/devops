@@ -13,10 +13,10 @@ const (
 )
 
 func main(){
-    SendEmail([]string{"xx@xx.com", "xx@xx.com"}, "subject", "content", []string{"a.txt", "b.txt"})
+    sendEmail([]string{"xx@xx.com", "xx@xx.com"}, "subject", "content", []string{"a.txt", "b.txt"})
 }
 
-func SendEmail(receivers []string, subject string, content string, attachments []string) error {
+func sendEmail(receivers []string, subject string, content string, attachments []string) error {
     message := gomail.NewMessage()
     message.SetHeader("From", message.FormatAddress(user, name))
     message.SetHeader("To", receivers...)
