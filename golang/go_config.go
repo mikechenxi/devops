@@ -11,12 +11,12 @@ const (
 )
 
 func main(){
-    fmt.Println(GetConfig("A", "a"))
-    fmt.Println(SetConfig("A", "a", "aaaaa"))
-    fmt.Println(GetConfig("A", "a"))
+    fmt.Println(getConfig("A", "a"))
+    fmt.Println(setConfig("A", "a", "aaaaa"))
+    fmt.Println(getConfig("A", "a"))
 }
 
-func GetConfig(section string, key string) string {
+func getConfig(section string, key string) string {
     cfg, err := ini.Load(configFILE)
     if err != nil {
         fmt.Println(err)
@@ -25,7 +25,7 @@ func GetConfig(section string, key string) string {
     return cfg.Section(section).Key(key).String()
 }
 
-func SetConfig(section, key, value string) bool {
+func setConfig(section, key, value string) bool {
     cfg, err := ini.Load(configFILE)
     if err != nil {
         fmt.Println(err)
