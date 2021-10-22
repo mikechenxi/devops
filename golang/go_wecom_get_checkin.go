@@ -19,17 +19,17 @@ func main(){
     sysTime := time.Now()
     startTime := sysTime.Add(-time.Minute * 60).Format(TIME_LAYOUT)
     endTime := sysTime.Format(TIME_LAYOUT)
-    userListMap := GetWecomUserList()
+    userListMap := getWecomUserList()
     //startTime = "2021-07-26 12:00:00"
     //endTime = "2021-07-26 17:00:00"
     //userListMap = map[string]string{"01": "张三"}
-    checkinData := GetWecomCheckinData(startTime, endTime, userListMap)
+    checkinData := getWecomCheckinData(startTime, endTime, userListMap)
     fmt.Println(checkinData)
 }
 
-func GetWecomUserList() map[string]string {
+func getWecomUserList() map[string]string {
     var userListMap = make(map[string]string)
-    token := GetWecomToken("org")
+    token := getWecomToken("org")
     url := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token=%s&department_id=%s&fetch_child=1", token, "1")
     resp, err := http.Get(url)
     if err != nil {
@@ -50,14 +50,14 @@ func GetWecomUserList() map[string]string {
     return userListMap
 }
 
-func GetWecomCheckinData(startTime string, endTime string, userListMap map[string]string) []interface{} {
+func getWecomCheckinData(startTime string, endTime string, userListMap map[string]string) []interface{} {
     var ret []interface{}
     loc, _ := time.LoadLocation("Local")
     startTimeTmp, _ := time.ParseInLocation(TIME_LAYOUT, startTime, loc)
     startTimeUnix := startTimeTmp.Unix()
     endTimeTmp, _ := time.ParseInLocation(TIME_LAYOUT, endTime, loc)
     endTimeUnix := endTimeTmp.Unix()
-    token := GetWecomToken("checkin")
+    token := getWecomToken("checkin")
     url := fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token=%s", token)
     var data = map[string]interface{} {
         "opencheckindatatype": "1",
@@ -96,7 +96,7 @@ func GetWecomCheckinData(startTime string, endTime string, userListMap map[strin
 }
 
 
-func GetWecomToken(source string) string{
+func getWecomToken(source string) string{
     corpID := "xxxx"
     corpSecret := ""
     if source == "checkin" {
