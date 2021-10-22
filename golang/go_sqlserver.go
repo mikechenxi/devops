@@ -24,7 +24,7 @@ func main(){
     fmt.Println(QuerySqlserver("select name from tablename where id = ?", 1))
 }
 
-func InitSqlserver() {
+func initSqlserver() {
     ds := fmt.Sprintf("server=%s;port=%d;user id=%s;password=%s;database=%s;encrypt=disable", dbIp, dbPort, dbUserName, dbPassword, dbName)
     sqlserverDB, sqlserverErr = sql.Open("mssql", ds)
     fmt.Println(sqlserverDB.Ping())
@@ -34,9 +34,9 @@ func InitSqlserver() {
     }
 }
 
-func QuerySqlserver(sqlStatement string, params ...interface{}) []map[string]string {
+func querySqlserver(sqlStatement string, params ...interface{}) []map[string]string {
     var result []map[string]string
-    InitSqlserver()
+    initSqlserver()
     defer sqlserverDB.Close()
     rows, err := sqlserverDB.Query(sqlStatement, params...)
     if err != nil {
@@ -61,8 +61,8 @@ func QuerySqlserver(sqlStatement string, params ...interface{}) []map[string]str
     return result
 }
 
-func ExecSqlserver(sqlStatement string, params ...interface{}) (int64, error) {
-    InitSqlserver()
+func execSqlserver(sqlStatement string, params ...interface{}) (int64, error) {
+    initSqlserver()
     defer sqlserverDB.Close()
     result, err := sqlserverDB.Exec(sqlStatement, params...)
     if err != nil {
