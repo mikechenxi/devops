@@ -11,7 +11,11 @@ import (
     "strings"
 )
 
-func CallHttp(requestUrl string, requestData map[string]interface{}, method string, useProxy bool) interface{}{
+func main(){
+    fmt.Println(callHttp("https://www.baidu.com", nil, "GET"))
+}
+
+func callHttp(requestUrl string, requestData map[string]interface{}, method string, useProxy bool) interface{}{
     var client http.Client
     if useProxy == true {
         proxyUrl := "http://xx.xx.xx.xx:xx"
