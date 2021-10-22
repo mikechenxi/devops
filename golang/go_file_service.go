@@ -19,15 +19,15 @@ func main(){
 
 func GetPort() string {
     port := ""
-    is_num := false
-    for is_num == false {
+    isNum := false
+    for isNum == false {
         fmt.Print("请输入共享端口号(纯数字, 比如80): ")
         fmt.Scanln(&port)
         if len(port) == 0 {
             continue
         } else {
-            is_num = IsNum(port)
-            if is_num == false {
+            isNum = IsNum(port)
+            if isNum == false {
                 port = ""
                 fmt.Println("端口号需为纯数字")
             }
