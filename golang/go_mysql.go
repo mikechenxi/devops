@@ -25,7 +25,7 @@ func main(){
     fmt.Println(QueryMysql("select name from tablename where id = ?", 1))
 }
 
-func InitDb(){
+func initDb(){
     ds := fmt.Sprintf("%s:%s@%s(%s:%d)/%s", dbUserName, dbPassword, dbNetwork, dbIp, dbPort, dbName)
     db, err = sql.Open("mysql", ds)
     if err := db.Ping(); err != nil {
@@ -34,9 +34,9 @@ func InitDb(){
     }
 }
 
-func QueryMysql(sqlStatement string, params ...interface{}) []map[string]string {
+func queryMysql(sqlStatement string, params ...interface{}) []map[string]string {
     var result []map[string]string
-    InitDb()
+    initDb()
     defer db.Close()
     rows, err := db.Query(sqlStatement, params...)
     if err != nil {
@@ -61,8 +61,8 @@ func QueryMysql(sqlStatement string, params ...interface{}) []map[string]string 
     return result
 }
 
-func ExecMysql(sqlStatement string, params ...interface{}) (int64, error) {
-    InitDb()
+func execMysql(sqlStatement string, params ...interface{}) (int64, error) {
+    initDb()
     defer db.Close()
     result, err := db.Exec(sqlStatement, params...)
     if err != nil {
