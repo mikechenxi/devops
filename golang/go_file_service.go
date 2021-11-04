@@ -9,6 +9,7 @@ import (
     "os/exec"
     "path/filepath"
     "strconv"
+    "time"
 )
 
 func main(){
@@ -75,6 +76,7 @@ func showRemind(ip, port string) {
     fmt.Println("请在浏览器打开 " + url + " 来访问共享文件")
     fmt.Println("共享目录为本程序所在目录")
     fmt.Println("直接关掉本窗口即可停止共享")
+    time.Sleep(time.Second)
     cmd := exec.Command("explorer", url)
     cmd.Start()
 }
