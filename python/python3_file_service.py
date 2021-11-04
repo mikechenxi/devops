@@ -14,7 +14,7 @@ def main():
 def get_port():
     port = ''
     while not port.isdigit():
-        port = input('请输入共享端口号(小于65535的正整数, 比如80):')
+        port = input('请输入共享端口号(小于65535的正整数, 比如80): ')
         if len(port) == 0:
             continue
         elif not port.isdigit() or int(port) > 65535:
