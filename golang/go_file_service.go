@@ -6,6 +6,7 @@ import (
     "net"
     "net/http"
     "os"
+    "os/exec"
     "path/filepath"
     "strconv"
 )
@@ -19,17 +20,19 @@ func main(){
 
 func getPort() string {
     port := ""
-    isPortANum := false
-    for isPortANum == false {
-        fmt.Print("请输入共享端口号(纯数字, 比如80): ")
+    isPortValid := false
+    for isPortValid == false {
+        fmt.Print("请输入共享端口号(小于65535的正整数, 比如80): ")
         fmt.Scanln(&port)
         if len(port) == 0 {
             continue
         } else {
-            isPortANum = isNum(port)
-            if isPortANum == false {
+            portNum, err := strconv.ParseInt(port, 10, 64)
+            if err != nil || portNum > 65535 || portNum < 0 {
                 port = ""
-                fmt.Println("端口号需为纯数字")
+                fmt.Println("端口号需为小于65535的正整数")
+            } else {
+                isPortValid = true
             }
         }
     }
@@ -68,9 +71,12 @@ func startHttp(port string) {
 }
 
 func showRemind(ip, port string) {
-    fmt.Println("请在浏览器打开 http://" + ip + ":" + port + " 来访问共享文件")
+    url := "http://" + ip + ":" + port
+    fmt.Println("请在浏览器打开 " + url + " 来访问共享文件")
     fmt.Println("共享目录为本程序所在目录")
     fmt.Println("直接关掉本窗口即可停止共享")
+    cmd := exec.Command("explorer", url)
+    cmd.Start()
 }
 
 func getActualIP() (net.IP, error) {
@@ -116,9 +122,4 @@ func getIpFromAddr(addr net.Addr) net.IP {
         return nil // not an ipv4 address
     }
     return ip
-}
-
-func isNum(port string) bool {
-    _, err := strconv.ParseFloat(port, 64)
-    return err == nil
 }
