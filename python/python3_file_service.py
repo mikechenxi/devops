@@ -1,5 +1,5 @@
 from http.server import HTTPServer, CGIHTTPRequestHandler
-import socket, threading, webbrowser
+import socket, threading, webbrowser, time
 
 
 def main():
@@ -45,6 +45,7 @@ def show_remind(ip, port):
     print('请在浏览器打开 ' + url + ' 来访问共享文件')
     print('共享目录为本程序所在目录')
     print('直接关掉本窗口即可停止共享')
+    time.sleep(1)
     webbrowser.open(url)
 
 
