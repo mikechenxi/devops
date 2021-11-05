@@ -36,8 +36,8 @@ def send_email(receivers, subject, content, cc = None, att_paths = None):
             msg.attach(att)
 
     try:
-        smtp = smtplib.SMTP()
-        smtp.connect(server, port)
+        smtp = smtplib.SMTP(server, port)
+        # smtp = smtplib.SMTP_SSL(server, port)
         smtp.login(address, password)
         smtp.sendmail(address, receivers, msg.as_string())
         smtp.quit()
