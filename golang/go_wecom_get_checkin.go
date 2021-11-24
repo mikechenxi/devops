@@ -73,7 +73,7 @@ func getWecomCheckinData(startTime string, endTime string, userListMap map[strin
         if i < len(userIDList) / 100 {
             data["useridlist"] = userIDList[i * 100: (i + 1) * 100]
         } else {
-            data["useridlist"] = userIDList[i * 100: len(userIDList)]
+            data["useridlist"] = userIDList[i * 100: ]
         }
         bytesData, _ := json.Marshal(data)
         resp, err := http.Post(url, "application/json", bytes.NewReader(bytesData))
