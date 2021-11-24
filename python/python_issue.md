@@ -197,22 +197,29 @@ print(sorted(dic.items(), key=lambda item:item[1]))  # [('2021-02-21', 'aa'), ('
 ## python datetimie
 
 ``` python
+[in]import datetime
+
 [in]: datetime.datetime.now()
 [out]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696)
+
 [in]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696).strftime('%Y-%m-%d %H:%M:%S')
 [out]: '2021-03-25 10:21:58'
 [in]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696).strftime('%Y-%m-%d')
 [out]: '2021-03-25'
 [in]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696).strftime('%H:%M:%S')
 [out]: '10:21:58'
+
 [in]: datetime.datetime.strptime('2021-03-25 10:23:22', '%Y-%m-%d %H:%M:%S')
 [out]: datetime.datetime(2021, 3, 25, 10, 23, 22)
 [in]: datetime.datetime.strptime('2021-03-25', '%Y-%m-%d')
 [out]: datetime.datetime(2021, 3, 25, 0, 0)
 [in]: datetime.datetime.strptime('10:23:22', '%H:%M:%S')
 [out]: datetime.datetime(1900, 1, 1, 10, 23, 22)
-[in]: datetime.datetime.now() - datetime.datetime(2001, 3, 25, 10, 23, 22)
-[out]: datetime.timedelta(days=7305, seconds=740, microseconds=569247)
+
+[in]: datetime.datetime(2021, 4, 28, 15, 34, 56, 52) - datetime.datetime(2020, 3, 25, 10, 23, 22)
+[out]: datetime.timedelta(days=399, seconds=18694, microseconds=52)
+[in]: datetime.datetime(2001, 3, 25, 10, 23, 22) + datetime.timedelta(days = 1, hours = 1, minutes = 1, seconds = 1, microseconds = 1)
+[out]: datetime.datetime(2001, 3, 26, 11, 24, 23, 1)
 ```
 
 ## ModuleNotFoundError: No module named '_bz2'
