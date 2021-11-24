@@ -201,6 +201,10 @@ print(sorted(dic.items(), key=lambda item:item[1]))  # [('2021-02-21', 'aa'), ('
 
 [in]: datetime.datetime.now()
 [out]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696)
+[in]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696).timestamp()
+[out]: 1616638918.557696
+[in]: datetime.datetime.fromtimestamp(1616638918.557696)
+[out]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696)
 
 [in]: datetime.datetime(2021, 3, 25, 10, 21, 58, 557696).strftime('%Y-%m-%d %H:%M:%S')
 [out]: '2021-03-25 10:21:58'
